@@ -4,7 +4,7 @@ import { themeInit } from '../scripts/theme';
 interface Props { title: string; description: string; lang?: string; }
 const { title, description, lang = 'ko' } = Astro.props;
 const og = new URL('/og-image.png', Astro.site);
-const CF_TOKEN = ''; // Task 15에서 Cloudflare 토큰 삽입
+const CF_TOKEN = '18a2e019d6144877be278e1a92a7bd83'; // Cloudflare Web Analytics (public beacon token)
 ---
 <!doctype html>
 <html lang={lang}>
