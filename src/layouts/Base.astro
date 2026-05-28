@@ -1,0 +1,31 @@
+---
+import '../styles/global.css';
+import { themeInit } from '../scripts/theme';
+interface Props { title: string; description: string; lang?: string; }
+const { title, description, lang = 'ko' } = Astro.props;
+const og = new URL('/og-image.png', Astro.site);
+const CF_TOKEN = ''; // Task 15에서 Cloudflare 토큰 삽입
+---
+<!doctype html>
+<html lang={lang}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content={og} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script is:inline set:html={themeInit} />
+</head>
+<body>
+  <slot />
+  {CF_TOKEN && (
+    <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon={`{"token": "${CF_TOKEN}"}`} />
+  )}
+</body>
+</html>
