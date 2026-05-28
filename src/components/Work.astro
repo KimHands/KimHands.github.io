@@ -1,0 +1,18 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectCard from './ProjectCard.astro';
+import { useTranslations, type Lang } from '../i18n/utils';
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+const projects = (await getCollection('projects', (p) => p.data.featured))
+  .sort((a, b) => a.data.order - b.data.order);
+const delays = ['', 'd1', 'd2', 'd3'];
+const slot = t('work.slot').replace('\\n', '<br>');
+---
+<section id="work"><div class="page">
+  <div class="seclabel reveal"><span><span class="dot">#</span> {t('work.label')}</span><span>{`0${projects.length} / 06`}</span></div>
+  <div class="workgrid">
+    {projects.map((p, i) => <ProjectCard project={p} lang={lang} delay={delays[i] ?? ''} />)}
+    <div class="card slot reveal d3" set:html={slot} />
+  </div>
+</div></section>

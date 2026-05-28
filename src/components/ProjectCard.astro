@@ -1,0 +1,20 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { Lang } from '../i18n/utils';
+const { project, lang, delay } = Astro.props as
+  { project: CollectionEntry<'projects'>; lang: Lang; delay: string };
+const d = project.data;
+const title = lang === 'en' ? d.title_en : d.title;
+const role = lang === 'en' ? d.role_en : d.role;
+const summary = lang === 'en' ? d.summary_en : d.summary;
+const liveLabel = d.liveUrl ? d.liveUrl.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '') : null;
+---
+<a class={`card reveal ${delay}`} href={d.repoUrl ?? d.liveUrl ?? '#'} target="_blank" rel="noopener">
+  <div class="rtop"><h3>{title}</h3><span class="meta">{role}</span></div>
+  <p>{summary}</p>
+  <div class="tech">{d.tech.join(' · ')}</div>
+  <div class="links">
+    {d.liveUrl && <span class="live">{liveLabel} ↗</span>}
+    {d.repoUrl && <span class="src">{lang === 'en' ? 'Code ↗' : '코드 ↗'}</span>}
+  </div>
+</a>
