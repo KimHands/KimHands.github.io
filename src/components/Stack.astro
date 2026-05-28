@@ -1,0 +1,18 @@
+---
+import { useTranslations, type Lang } from '../i18n/utils';
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+const rows: [string,string][] = [
+  ['Frontend','<b>React</b> · Next.js · TypeScript · Tailwind'],
+  ['Backend','<b>FastAPI</b> · Django · PostgreSQL · Supabase'],
+  ['Security','RSA · JWT · SSO · 세션 설계 · CTF 출제'],
+  ['AI','Gemini · OpenAI · 임베딩 분류 · 자동화 워크플로우'],
+  ['Infra','Docker · Vercel · AWS · 자체 서버 운영'],
+];
+---
+<section id="about"><div class="page">
+  <div class="seclabel reveal"><span><span class="dot">#</span> {t('stack.label')}</span><span>{t('stack.note')}</span></div>
+  <dl class="deflist reveal d1">
+    {rows.map(([k,v]) => (<><dt>{k}</dt><dd set:html={v} /></>))}
+  </dl>
+</div></section>
