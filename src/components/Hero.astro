@@ -1,0 +1,19 @@
+---
+import Terminal from './Terminal.astro';
+import { useTranslations, type Lang } from '../i18n/utils';
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+---
+<header class="hero"><div class="page">
+  <div class="grid">
+    <div>
+      <h1 class="reveal">김종건</h1>
+      <p class="lead reveal d1">{t('hero.lead.pre')}<span class="hl">{t('hero.lead.hl')}</span>{t('hero.lead.post')}</p>
+      <div class="herolinks reveal d2">
+        <a class="go" href="#work">{t('hero.work')}</a>
+        <a class="muted" href="/resume.pdf" target="_blank" rel="noopener">{t('hero.resume')}</a>
+      </div>
+    </div>
+    <Terminal />
+  </div>
+</div></header>
