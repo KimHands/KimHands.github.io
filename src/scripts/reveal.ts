@@ -21,3 +21,20 @@ if (reduce || !('IntersectionObserver' in window)) {
   }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
   reveals.forEach((e) => io.observe(e));
 }
+
+// "준비중" controls (e.g. résumé) — show a transient toast instead of navigating
+const soonEls = document.querySelectorAll<HTMLElement>('[data-soon]');
+if (soonEls.length) {
+  let toastTimer = 0;
+  soonEls.forEach((el) => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      const toast = document.getElementById('toast');
+      if (!toast) return;
+      toast.textContent = document.documentElement.lang === 'en' ? 'Coming soon.' : '준비중입니다.';
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(() => toast.classList.remove('show'), 1800);
+    });
+  });
+}

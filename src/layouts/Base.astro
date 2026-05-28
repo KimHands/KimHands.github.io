@@ -23,6 +23,7 @@ const CF_TOKEN = ''; // Task 15에서 Cloudflare 토큰 삽입
 </head>
 <body>
   <slot />
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
   {CF_TOKEN && (
     <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js"
       data-cf-beacon={`{"token": "${CF_TOKEN}"}`} />
