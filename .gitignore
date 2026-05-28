@@ -1,0 +1,13 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+.astro/
+
+# throwaway design mockups (not part of the site)
+mockups/
+
+# os / editor
+.DS_Store
+*.log
