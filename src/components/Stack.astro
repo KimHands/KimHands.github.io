@@ -2,13 +2,13 @@
 import { useTranslations, type Lang } from '../i18n/utils';
 const { lang } = Astro.props as { lang: Lang };
 const t = useTranslations(lang);
-type Tech = { t: string; strong?: boolean };
+type Tech = { t: string; t_en?: string; strong?: boolean };
 const rows: [string, Tech[]][] = [
   ['Frontend', [{ t: 'React', strong: true }, { t: 'Next.js' }, { t: 'TypeScript' }, { t: 'Tailwind' }]],
   ['Backend', [{ t: 'FastAPI', strong: true }, { t: 'Django' }, { t: 'PostgreSQL' }, { t: 'Supabase' }]],
-  ['Security', [{ t: 'RSA' }, { t: 'JWT' }, { t: 'SSO' }, { t: '세션 설계' }, { t: 'CTF 출제' }]],
-  ['AI', [{ t: 'Gemini' }, { t: 'OpenAI' }, { t: '임베딩 분류' }, { t: '자동화 워크플로우' }]],
-  ['Infra', [{ t: 'Docker' }, { t: 'Vercel' }, { t: 'AWS' }, { t: '자체 서버 운영' }]],
+  ['Security', [{ t: 'RSA' }, { t: 'JWT' }, { t: 'SSO' }, { t: '세션 설계', t_en: 'session design' }, { t: 'CTF 출제', t_en: 'CTF authoring' }]],
+  ['AI', [{ t: 'Gemini' }, { t: 'OpenAI' }, { t: '임베딩 분류', t_en: 'embedding classification' }, { t: '자동화 워크플로우', t_en: 'automation workflows' }]],
+  ['Infra', [{ t: 'Docker' }, { t: 'Vercel' }, { t: 'AWS' }, { t: '자체 서버 운영', t_en: 'self-hosted servers' }]],
 ];
 ---
 <section id="about"><div class="page">
@@ -21,7 +21,7 @@ const rows: [string, Tech[]][] = [
           {items.map((it, i) => (
             <>
               {i > 0 && <span class="sep">·</span>}
-              <span class={it.strong ? 'st' : ''}>{it.t}</span>
+              <span class={it.strong ? 'st' : ''}>{lang === 'en' && it.t_en ? it.t_en : it.t}</span>
             </>
           ))}
         </div>
