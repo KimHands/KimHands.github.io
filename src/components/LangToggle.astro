@@ -1,0 +1,10 @@
+---
+const { lang } = Astro.props as { lang: 'ko' | 'en' };
+const to = lang === 'ko' ? '/en/' : '/';
+const labelActiveKo = lang === 'ko';
+---
+<a class="toggle mono" href={to} aria-label="언어 전환">
+  <span style={labelActiveKo ? 'color:var(--ink)' : ''}>KO</span>
+  /
+  <span style={!labelActiveKo ? 'color:var(--ink)' : ''}>EN</span>
+</a>
