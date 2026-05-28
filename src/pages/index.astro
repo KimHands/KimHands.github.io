@@ -1,14 +1,19 @@
 ---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Stack from '../components/Stack.astro';
+import Work from '../components/Work.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+const lang = 'ko' as const;
 ---
-<html lang="ko">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>김종건 포트폴리오</title>
-  </head>
-  <body>
-    <h1>김종건 포트폴리오</h1>
-  </body>
-</html>
+<Base title="김종건 — 보안을 이해하는 풀스택 개발자" description="보안·풀스택·AI가 겹치는 지점에서 실제로 배포되는 도구를 만드는 개발자 김종건의 포트폴리오." lang={lang}>
+  <Nav lang={lang} />
+  <Hero lang={lang} />
+  <Stack lang={lang} />
+  <Work lang={lang} />
+  <Contact lang={lang} />
+  <Footer />
+</Base>
+<script src="../scripts/reveal.ts"></script>

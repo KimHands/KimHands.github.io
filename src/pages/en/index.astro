@@ -1,0 +1,19 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Hero from '../../components/Hero.astro';
+import Stack from '../../components/Stack.astro';
+import Work from '../../components/Work.astro';
+import Contact from '../../components/Contact.astro';
+import Footer from '../../components/Footer.astro';
+const lang = 'en' as const;
+---
+<Base title="Jonggun Kim — Fullstack developer who understands security" description="Portfolio of Jonggun Kim — a developer building shipped tools at the intersection of security, fullstack, and AI." lang={lang}>
+  <Nav lang={lang} />
+  <Hero lang={lang} />
+  <Stack lang={lang} />
+  <Work lang={lang} />
+  <Contact lang={lang} />
+  <Footer />
+</Base>
+<script src="../../scripts/reveal.ts"></script>
