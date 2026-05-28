@@ -63,10 +63,23 @@ section{padding:88px 0}
 .term .c{color:var(--accent)} .term .o{color:var(--charcoal)}
 .cursor{display:inline-block;width:8px;height:1.02em;background:var(--accent);vertical-align:-2px;margin-left:3px;animation:blink 1.05s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
-.deflist{display:grid;grid-template-columns:140px 1fr;gap:18px 28px;max-width:780px}
-.deflist dt{font-family:var(--mono);font-size:13px;color:var(--mute);padding-top:2px}
-.deflist dd{font-size:16px;color:var(--charcoal)}
-.deflist dd b{color:var(--ink);font-weight:500}
+.stack{max-width:840px}
+.srow{display:grid;grid-template-columns:150px 1fr;gap:32px;padding:22px 0;border-top:1px solid var(--hairline);align-items:baseline}
+.srow:first-child{border-top:none;padding-top:0}
+.skey{font-family:var(--mono);font-size:13px;color:var(--mute)}
+.sval{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px;font-size:16px;color:var(--charcoal)}
+.sval .sep{color:var(--hairline-strong)}
+.sval .st{color:var(--ink);font-weight:600}
+.timeline{display:flex;flex-direction:column}
+.tgroup{display:grid;grid-template-columns:160px 1fr;gap:32px;padding:28px 0;border-top:1px solid var(--hairline)}
+.tgroup:first-child{border-top:none;padding-top:0}
+.tperiod{font-family:var(--mono);font-size:13px;color:var(--mute);padding-top:3px}
+.trole{font-size:18px;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
+.titems{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:10px}
+.titems li{font-size:15px;color:var(--charcoal);line-height:1.5;position:relative;padding-left:16px}
+.titems li::before{content:"–";position:absolute;left:0;color:var(--mute)}
+.titems a{color:var(--charcoal);text-decoration:none;border-bottom:1px solid var(--hairline);transition:color .15s,border-color .15s}
+.titems a:hover{color:var(--accent);border-color:var(--accent)}
 .workgrid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .card{display:block;text-decoration:none;color:inherit;border:1px solid var(--hairline);
   border-radius:14px;padding:28px;transition:border-color .15s}
@@ -81,14 +94,15 @@ section{padding:88px 0}
 .card .links a.src{color:var(--charcoal);text-decoration:none;border-bottom:1px solid var(--hairline-strong);padding-bottom:1px}
 .card.slot{border-style:dashed;border-color:var(--hairline-strong);display:flex;align-items:center;
   justify-content:center;color:var(--mute);font-family:var(--mono);font-size:13px;text-align:center;min-height:150px}
-.contact{background:var(--dark);border-radius:18px;padding:56px 48px;color:var(--on-dark);
+.contact{background:var(--soft);border:1px solid var(--hairline);border-radius:18px;padding:48px;color:var(--ink);
   display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center}
 .contact .k{font-family:var(--mono);font-size:13px;color:var(--accent);margin-bottom:16px}
-.contact h2{font-size:30px;font-weight:600;letter-spacing:-.025em;line-height:1.1}
-.contact p{margin-top:12px;color:var(--on-dark-mute);font-size:16px}
+.contact h2{font-size:30px;font-weight:600;letter-spacing:-.025em;line-height:1.1;color:var(--ink)}
+.contact p{margin-top:12px;color:var(--charcoal);font-size:16px}
 .contact .actions{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
-.contact .wpill{background:#fff;color:#1d1d1f;border-radius:9999px;padding:11px 22px;font-size:14px;font-weight:600;text-decoration:none;white-space:nowrap}
-.contact .wlink{color:#fff;text-decoration:none;font-size:14px;border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:1px}
+.contact .wpill{background:var(--ink);color:var(--canvas);border-radius:9999px;padding:11px 22px;font-size:14px;font-weight:600;text-decoration:none;white-space:nowrap}
+.contact .wlink{color:var(--charcoal);text-decoration:none;font-size:14px;border-bottom:1px solid var(--hairline-strong);padding-bottom:1px}
+.contact .wlink:hover{color:var(--ink)}
 .footer{border-top:1px solid var(--hairline);padding:32px 0;margin-top:32px}
 .footer .page{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 .footer a{font-family:var(--mono);font-size:12px;color:var(--body);text-decoration:none}
@@ -103,5 +117,6 @@ section{padding:88px 0}
   .hero{padding:64px 0 8px}.hero .grid{grid-template-columns:1fr;gap:40px}
   .hero h1{font-size:44px}.workgrid{grid-template-columns:1fr}
   .contact{grid-template-columns:1fr;padding:40px 28px}.contact .actions{flex-direction:row;flex-wrap:wrap}
+  .srow{grid-template-columns:1fr;gap:6px}.tgroup{grid-template-columns:1fr;gap:10px}
   .page{padding:0 24px}section{padding:64px 0}
 }

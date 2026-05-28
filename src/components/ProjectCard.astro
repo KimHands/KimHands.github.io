@@ -9,12 +9,12 @@ const role = lang === 'en' ? d.role_en : d.role;
 const summary = lang === 'en' ? d.summary_en : d.summary;
 const liveLabel = d.liveUrl ? d.liveUrl.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '') : null;
 ---
-<a class={`card reveal ${delay}`} href={d.repoUrl ?? d.liveUrl ?? '#'} target="_blank" rel="noopener">
+<div class={`card reveal ${delay}`}>
   <div class="rtop"><h3>{title}</h3><span class="meta">{role}</span></div>
   <p>{summary}</p>
   <div class="tech">{d.tech.join(' · ')}</div>
   <div class="links">
-    {d.liveUrl && <span class="live">{liveLabel} ↗</span>}
-    {d.repoUrl && <span class="src">{lang === 'en' ? 'Code ↗' : '코드 ↗'}</span>}
+    {d.liveUrl && <a class="live" href={d.liveUrl} target="_blank" rel="noopener">{liveLabel} ↗</a>}
+    {d.repoUrl && <a class="src" href={d.repoUrl} target="_blank" rel="noopener">{lang === 'en' ? 'Code ↗' : '코드 ↗'}</a>}
   </div>
-</a>
+</div>

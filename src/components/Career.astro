@@ -1,0 +1,83 @@
+---
+import { type Lang } from '../i18n/utils';
+const { lang } = Astro.props as { lang: Lang };
+
+type Item = { text: string; href?: string };
+type Group = { period: string; role: string; role_en: string; items: Item[] };
+
+// 증빙 링크: href가 채워지면 해당 항목이 클릭 링크로 렌더됨. 현재는 자리표시(텍스트).
+const groups: Group[] = [
+  {
+    period: '2023.03 ~ Now',
+    role: '순천향대학교 · 컴퓨터소프트웨어공학과',
+    role_en: 'Soonchunhyang Univ. · Computer Software Engineering',
+    items: [
+      { text: '2025 순천향 SW 아이디어 공모전 참가' },
+      { text: '2025 ADsP 양성 과정 수료' },
+      { text: '2025-2 SW·AI 영역 학습 튜터 활동' },
+      { text: '2026 Wrtn 순천향대학교 부트캠프 우수수료' },
+      { text: '2026 로컬 창업동아리 아이디어 리그 경진대회 참가' },
+      { text: '다수 튜터링 프로그램 튜터 활동' },
+    ],
+  },
+  {
+    period: '2025 ~ 2026',
+    role: '멋쟁이사자처럼 13기 · AI 아기사자 수료',
+    role_en: 'LikeLion 13th · AI Track (completed)',
+    items: [
+      { text: '13기 멋사대학 아이디어톤 참가' },
+      { text: '13기 멋사대학 중앙해커톤 참가' },
+    ],
+  },
+  {
+    period: '2026 ~ Now',
+    role: '멋쟁이사자처럼 14기 · 풀스택 파트장',
+    role_en: 'LikeLion 14th · Fullstack Track Lead',
+    items: [
+      { text: '14기 멋쟁이사자처럼 풀스택 교육세션 진행' },
+      { text: '14기 멋사대학 아이디어톤 참가' },
+    ],
+  },
+  {
+    period: '2025 ~ Now',
+    role: '정보보호연구회 Hedgehog · 학부 랩 인턴',
+    role_en: 'Hedgehog Security Lab · Undergraduate Research Intern',
+    items: [
+      { text: '보안세미나(암호학) · 기술세미나(포렌식/리버싱) 발표' },
+      { text: '2025 대학 암호동아리 / KUCIS / 사이버보안동아리 선정' },
+      { text: '2025 KISIA 융합보안 인력양성 교육(AI보안 1차) 수료' },
+      { text: '2025 KISIA 온택트 융합보안 다수 강의 수료' },
+      { text: '2025 KUCIS 우수동아리 시상' },
+      { text: '2025 제11회 암호분석경진대회 참가' },
+      { text: '2025 헥테온 세종 국제 대학생 사이버보안 경진대회 참가' },
+      { text: '2025 사이버공격방어대회 참가' },
+      { text: '2025 제24회 세계 보안 엑스포 참관' },
+      { text: '2025 CodeEngn Conference 21 참관' },
+      { text: '2026 대학 암호동아리 / KUCIS 선정' },
+      { text: "2026 한국정보보호학회 하계학술대회(CISC-S'26) 논문 Accept · 포스터 발표" },
+    ],
+  },
+];
+
+const label = lang === 'en' ? 'Career' : '이력';
+const note = lang === 'en' ? 'activities & awards' : '활동 · 수상';
+const delays = ['', 'd1', 'd2', 'd3'];
+---
+<section id="career"><div class="page">
+  <div class="seclabel reveal"><span><span class="dot">#</span> {label}</span><span>{note}</span></div>
+  <div class="timeline">
+    {groups.map((g, gi) => (
+      <div class={`tgroup reveal ${delays[gi] ?? ''}`}>
+        <div class="tperiod">{g.period}</div>
+        <div class="tbody">
+          <h3 class="trole">{lang === 'en' ? g.role_en : g.role}</h3>
+          <ul class="titems">
+            {g.items.map((it) => (
+              <li>{it.href ? <a href={it.href} target="_blank" rel="noopener">{it.text} ↗</a> : it.text}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    ))}
+  </div>
+</div></section>

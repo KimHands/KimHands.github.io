@@ -4,9 +4,9 @@ export const defaultLang = 'ko';
 export const ui = {
   ko: {
     'nav.work': 'Work', 'nav.about': 'About', 'nav.blog': 'Blog', 'nav.contact': 'Contact',
-    'hero.lead.pre': '순천향대에서 컴퓨터소프트웨어공학을 공부하고, 멋쟁이사자처럼 풀스택 트랙을 운영하며 정보보호 연구실에서 일합니다. ',
+    'hero.lead.pre': '',
     'hero.lead.hl': '보안·풀스택·AI가 겹치는 지점',
-    'hero.lead.post': '에서 실제로 배포되는 도구를 만듭니다.',
+    'hero.lead.post': '에서 실제로 배포되는 도구를 만드는 개발자입니다.',
     'hero.work': '작업 보기 ↓', 'hero.resume': '이력서 (PDF) ↗',
     'stack.label': 'Stack', 'stack.note': '실제 비중대로',
     'work.label': 'Selected Work',
@@ -17,9 +17,9 @@ export const ui = {
   },
   en: {
     'nav.work': 'Work', 'nav.about': 'About', 'nav.blog': 'Blog', 'nav.contact': 'Contact',
-    'hero.lead.pre': 'I study Computer Software Engineering at Soonchunhyang University, lead the LikeLion fullstack track, and work in an information-security lab. I build ',
-    'hero.lead.hl': 'tools at the intersection of security, fullstack, and AI',
-    'hero.lead.post': ' — and actually ship them.',
+    'hero.lead.pre': 'A developer who builds shipped tools at the intersection of ',
+    'hero.lead.hl': 'security, fullstack, and AI',
+    'hero.lead.post': '.',
     'hero.work': 'See work ↓', 'hero.resume': 'Résumé (PDF) ↗',
     'stack.label': 'Stack', 'stack.note': 'by real usage',
     'work.label': 'Selected Work',
