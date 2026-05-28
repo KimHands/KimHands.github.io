@@ -1,0 +1,20 @@
+---
+import { useTranslations, type Lang } from '../i18n/utils';
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+const email = 'kimjonggun0206@gmail.com';
+---
+<section id="contact"><div class="page">
+  <div class="contact reveal">
+    <div>
+      <div class="k mono">{t('contact.cmd')}</div>
+      <h2>{t('contact.title')}</h2>
+      <p>{t('contact.body')}</p>
+    </div>
+    <div class="actions">
+      <a class="wpill" href={`mailto:${email}`}>{t('contact.email')}</a>
+      <a class="wlink" href="https://github.com/KimHands" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="wlink" href="/resume.pdf" target="_blank" rel="noopener">{lang === 'en' ? 'Résumé PDF ↗' : '이력서 PDF ↗'}</a>
+    </div>
+  </div>
+</div></section>
