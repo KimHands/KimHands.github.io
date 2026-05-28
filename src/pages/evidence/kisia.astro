@@ -1,0 +1,55 @@
+---
+import Base from '../../layouts/Base.astro';
+const certs = [
+  { label: 'AI보안 (집체 · 1차)', file: 'kisia-ai-security-offline.pdf' },
+  { label: 'AI보안', file: 'kisia-ai-security.pdf' },
+  { label: '정보보호개론', file: 'kisia-infosec-intro.pdf' },
+  { label: '융합보안개론', file: 'kisia-convergence-intro.pdf' },
+  { label: 'OT보안개론', file: 'kisia-ot-security.pdf' },
+  { label: '네트워크보안', file: 'kisia-network-security.pdf' },
+  { label: '시스템보안', file: 'kisia-system-security.pdf' },
+  { label: '리눅스 기초', file: 'kisia-linux-basics.pdf' },
+  { label: '웹 시스템 취약점 분석·평가', file: 'kisia-web-vuln.pdf' },
+  { label: '침해사고 분석', file: 'kisia-incident-analysis.pdf' },
+  { label: '랜섬웨어', file: 'kisia-ransomware.pdf' },
+  { label: '피싱과 악성파일', file: 'kisia-phishing-malware.pdf' },
+  { label: '블록체인', file: 'kisia-blockchain.pdf' },
+];
+---
+<Base
+  title="KISIA 융합보안 인력양성 교육 수료증 — Kim Jong Gun"
+  description="KISIA 융합보안 인력양성 교육 수료증 모음"
+  lang="ko"
+>
+  <main class="page certpage">
+    <a class="back mono" href="/">← 돌아가기</a>
+    <h1 class="certtitle">KISIA 융합보안 인력양성 교육</h1>
+    <p class="certnote">수료증 {certs.length}개 · 클릭하면 PDF가 열립니다.</p>
+    <ul class="certlist">
+      {certs.map((c) => (
+        <li>
+          <a href={`/evidence/${c.file}`} target="_blank" rel="noopener">
+            <span>{c.label}</span>
+            <span class="mono tag">PDF ↗</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </main>
+</Base>
+
+<style>
+  .certpage { max-width: 680px; padding-top: 72px; padding-bottom: 88px; }
+  .back { font-size: 13px; color: var(--mute); text-decoration: none; }
+  .back:hover { color: var(--ink); }
+  .certtitle { font-size: 32px; font-weight: 600; letter-spacing: -0.025em; margin-top: 24px; }
+  .certnote { color: var(--charcoal); margin-top: 10px; font-size: 16px; }
+  .certlist { list-style: none; margin-top: 28px; display: flex; flex-direction: column; }
+  .certlist li { border-top: 1px solid var(--hairline); }
+  .certlist a {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 2px; text-decoration: none; color: var(--ink); transition: color 0.15s;
+  }
+  .certlist a:hover { color: var(--accent); }
+  .certlist .tag { font-size: 12px; color: var(--accent); }
+</style>
