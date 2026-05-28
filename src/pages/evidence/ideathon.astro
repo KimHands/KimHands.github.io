@@ -1,0 +1,50 @@
+---
+import Base from '../../layouts/Base.astro';
+const docs = [
+  { label: '아이디어 설명', file: 'the-nudge-idea.pdf' },
+  { label: '발표 자료', file: 'the-nudge-slides.pdf' },
+];
+---
+<Base
+  title="The Nudge — 멋사대학 아이디어톤 (14기) · Kim Jong Gun"
+  description="멋쟁이사자처럼 14기 멋사대학 아이디어톤 출품작 The Nudge — 아이디어 설명, 발표 자료, 발표 영상"
+  lang="ko"
+>
+  <main class="page certpage">
+    <a class="back mono" href="/">← 돌아가기</a>
+    <h1 class="certtitle">The Nudge</h1>
+    <p class="certnote">멋쟁이사자처럼 14기 · 멋사대학 아이디어톤 출품작</p>
+
+    <ul class="certlist">
+      {docs.map((d) => (
+        <li>
+          <a href={`/evidence/${d.file}`} target="_blank" rel="noopener">
+            <span>{d.label}</span>
+            <span class="mono tag">PDF ↗</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <h2 class="vidtitle">발표 영상</h2>
+    <video class="vid" controls preload="metadata" src="/evidence/the-nudge-video.mp4"></video>
+  </main>
+</Base>
+
+<style>
+  .certpage { max-width: 680px; padding-top: 72px; padding-bottom: 88px; }
+  .back { font-size: 13px; color: var(--mute); text-decoration: none; }
+  .back:hover { color: var(--ink); }
+  .certtitle { font-size: 32px; font-weight: 600; letter-spacing: -0.025em; margin-top: 24px; }
+  .certnote { color: var(--charcoal); margin-top: 10px; font-size: 16px; }
+  .certlist { list-style: none; margin-top: 28px; display: flex; flex-direction: column; }
+  .certlist li { border-top: 1px solid var(--hairline); }
+  .certlist a {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 2px; text-decoration: none; color: var(--ink); transition: color 0.15s;
+  }
+  .certlist a:hover { color: var(--accent); }
+  .certlist .tag { font-size: 12px; color: var(--accent); }
+  .vidtitle { font-size: 18px; font-weight: 600; margin-top: 44px; }
+  .vid { width: 100%; margin-top: 16px; border: 1px solid var(--hairline); border-radius: 12px; background: #000; }
+</style>

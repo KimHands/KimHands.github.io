@@ -11,3 +11,6 @@ mockups/
 # os / editor
 .DS_Store
 *.log
+
+# held evidence (not for public)
+_evidence-hold/
