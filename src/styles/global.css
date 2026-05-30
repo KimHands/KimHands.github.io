@@ -44,6 +44,17 @@ section{padding:88px 0}
 .nright a.pill{background:var(--ink);color:var(--canvas);border-radius:9999px;padding:8px 18px;font-size:13px;
   font-weight:500;text-decoration:none}
 .nright a.pill:hover{color:var(--canvas);opacity:.85}
+/* nmenu is a transparent wrapper on desktop so links/GitHub flow inside .nright;
+   order:1 keeps the GitHub pill last (after the lang/theme toggles) as before */
+.nmenu{display:contents}
+.nmenu .pill{order:1}
+.hamb{display:none;background:none;border:none;cursor:pointer;padding:0;width:40px;height:40px;
+  flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.hamb span{display:block;width:22px;height:2px;background:var(--charcoal);border-radius:2px;
+  transition:transform .22s cubic-bezier(.2,.7,.2,1),opacity .18s}
+.hamb.on span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamb.on span:nth-child(2){opacity:0}
+.hamb.on span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 .toggle{font-family:var(--mono);font-size:13px;color:var(--charcoal);background:none;border:none;
   cursor:pointer;padding:4px;text-decoration:none}
 .toggle:hover{color:var(--ink)}
@@ -121,6 +132,17 @@ section{padding:88px 0}
   html.js .tl.in{opacity:1}
 }
 @media(max-width:880px){
+  .hamb{display:flex}
+  .nmenu{display:flex;flex-direction:column;align-items:stretch;gap:0;
+    position:absolute;left:0;right:0;top:60px;padding:8px 24px 18px;
+    background:var(--canvas);border-bottom:1px solid var(--hairline);
+    box-shadow:0 12px 24px -16px rgba(0,0,0,.25);
+    opacity:0;transform:translateY(-10px);pointer-events:none;
+    transition:opacity .2s ease,transform .22s cubic-bezier(.2,.7,.2,1)}
+  .nmenu.open{opacity:1;transform:none;pointer-events:auto}
+  .nmenu .nlink{font-size:16px;padding:14px 0;border-bottom:1px solid var(--hairline)}
+  .nmenu .nlink::after{display:none}
+  .nmenu .pill{order:0;align-self:flex-start;margin-top:16px;padding:10px 20px;font-size:14px}
   .hero{padding:64px 0 8px}.hero .grid{grid-template-columns:1fr;gap:40px}
   .hero h1{font-size:44px}.workgrid{grid-template-columns:1fr}
   .contact{grid-template-columns:1fr;padding:40px 28px}.contact .actions{flex-direction:row;flex-wrap:wrap}

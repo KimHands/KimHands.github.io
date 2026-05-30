@@ -9,12 +9,36 @@ const blog = 'https://velog.io/@kimhands';
 <nav class="nav"><div class="page">
   <div class="brand">KimHands</div>
   <div class="nright">
-    <a class="nlink" href="#work">{t('nav.work')}</a>
-    <a class="nlink" href="#about">{t('nav.about')}</a>
-    <a class="nlink" href={blog} target="_blank" rel="noopener">{t('nav.blog')} ↗</a>
-    <a class="nlink" href="#contact">{t('nav.contact')}</a>
+    <div class="nmenu" id="nmenu">
+      <a class="nlink" href="#work">{t('nav.work')}</a>
+      <a class="nlink" href="#about">{t('nav.about')}</a>
+      <a class="nlink" href={blog} target="_blank" rel="noopener">{t('nav.blog')} ↗</a>
+      <a class="nlink" href="#contact">{t('nav.contact')}</a>
+      <a class="pill" href="https://github.com/KimHands" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
     <LangToggle lang={lang} />
     <ThemeToggle />
-    <a class="pill" href="https://github.com/KimHands" target="_blank" rel="noopener">GitHub ↗</a>
+    <button id="nav-toggle" class="hamb" aria-label="메뉴" aria-expanded="false" aria-controls="nmenu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </div></nav>
+<script is:inline>
+  (function () {
+    const btn = document.getElementById('nav-toggle');
+    const menu = document.getElementById('nmenu');
+    if (!btn || !menu) return;
+    const close = () => {
+      menu.classList.remove('open');
+      btn.classList.remove('on');
+      btn.setAttribute('aria-expanded', 'false');
+    };
+    btn.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      btn.classList.toggle('on', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', close));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+  })();
+</script>
