@@ -40,7 +40,8 @@ section{padding:88px 0}
 .nright a:hover{color:var(--ink)}
 .nlink::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1.5px;background:var(--ink);
   transform:scaleX(0);transform-origin:left;transition:transform .26s cubic-bezier(.2,.7,.2,1)}
-.nlink:hover::after{transform:scaleX(1)}
+.nlink:hover::after,.nlink.is-active::after{transform:scaleX(1)}
+.nlink.is-active{color:var(--ink)}
 .nright a.pill{background:var(--ink);color:var(--canvas);border-radius:9999px;padding:8px 18px;font-size:13px;
   font-weight:500;text-decoration:none}
 .nright a.pill:hover{color:var(--canvas);opacity:.85}
@@ -94,8 +95,14 @@ section{padding:88px 0}
 .titems a:hover{color:var(--accent);border-color:var(--accent)}
 .workgrid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .card{display:block;text-decoration:none;color:inherit;border:1px solid var(--hairline);
-  border-radius:14px;padding:28px;transition:border-color .15s}
+  border-radius:14px;padding:28px;position:relative;overflow:hidden;transition:border-color .15s}
 .card:hover{border-color:var(--ink)}
+.card:not(.slot)::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;opacity:0;
+  background:radial-gradient(320px circle at var(--mx,50%) var(--my,50%),
+    color-mix(in srgb,var(--accent) 13%,transparent),transparent 62%);
+  transition:opacity .3s ease}
+.card:not(.slot):hover::before{opacity:1}
+.card>*{position:relative;z-index:1}
 .card .rtop{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
 .card h3{font-size:21px;font-weight:600;letter-spacing:-.02em}
 .card .meta{font-size:12.5px;color:var(--mute);white-space:nowrap}
@@ -125,11 +132,18 @@ section{padding:88px 0}
   transition:opacity .25s ease,transform .25s ease}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 @media (prefers-reduced-motion: no-preference){
-  html.js .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+  html.js .reveal{opacity:0;transform:translateY(14px);transition:opacity .72s cubic-bezier(.16,.84,.28,1),transform .72s cubic-bezier(.16,.84,.28,1)}
+  html.js .reveal.reveal-l{transform:translateX(-22px)}
+  html.js .reveal.reveal-r{transform:translateX(22px)}
   html.js .reveal.in{opacity:1;transform:none}
   .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
   html.js .tl{opacity:0;transition:opacity .3s ease}
   html.js .tl.in{opacity:1}
+}
+@media (prefers-reduced-motion: no-preference) and (pointer: fine){
+  [data-magnetic]{transition:transform .28s cubic-bezier(.2,.7,.2,1)}
+  .card:not(.slot){transition:border-color .15s,transform .28s cubic-bezier(.2,.7,.2,1),box-shadow .28s ease}
+  .card:not(.slot):hover{transform:translateY(-3px);box-shadow:0 14px 30px -20px rgba(0,0,0,.4)}
 }
 @media(max-width:880px){
   .hamb{display:flex}

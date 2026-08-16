@@ -12,7 +12,7 @@ const slot = t('work.slot').replace('\\n', '<br>');
 <section id="work"><div class="page">
   <div class="seclabel reveal"><span><span class="dot">#</span> {t('work.label')}</span><span>{`0${projects.length} / 06`}</span></div>
   <div class="workgrid">
-    {projects.map((p, i) => <ProjectCard project={p} lang={lang} delay={delays[i] ?? ''} />)}
+    {projects.map((p, i) => <ProjectCard project={p} lang={lang} delay={delays[i] ?? ''} dir={i % 2 === 0 ? 'reveal-l' : 'reveal-r'} />)}
     <div class="card slot reveal d3" set:html={slot} />
   </div>
 </div></section>
