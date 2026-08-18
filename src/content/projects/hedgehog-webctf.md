@@ -10,5 +10,5 @@ liveUrl: "https://hedgehog-web-ctf.vercel.app"
 repoUrl: "https://github.com/KimHands/Hedgehog_WebCTF"
 area: "security"
 featured: true
-order: 3
+order: 2
 ---

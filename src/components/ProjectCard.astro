@@ -13,8 +13,10 @@ const liveLabel = d.liveUrl ? d.liveUrl.replace(/^https?:\/\/(www\.)?/, '').repl
   <div class="rtop"><h3>{title}</h3><span class="meta">{role}</span></div>
   <p>{summary}</p>
   <div class="tech">{d.tech.join(' · ')}</div>
-  <div class="links">
-    {d.liveUrl && <a class="live" href={d.liveUrl} target="_blank" rel="noopener">{liveLabel} ↗</a>}
-    {d.repoUrl && <a class="src" href={d.repoUrl} target="_blank" rel="noopener">{lang === 'en' ? 'Code ↗' : '코드 ↗'}</a>}
-  </div>
+  {(d.liveUrl || d.repoUrl) && (
+    <div class="links">
+      {d.liveUrl && <a class="live" href={d.liveUrl} target="_blank" rel="noopener">{liveLabel} ↗</a>}
+      {d.repoUrl && <a class="src" href={d.repoUrl} target="_blank" rel="noopener">{lang === 'en' ? 'Code ↗' : '코드 ↗'}</a>}
+    </div>
+  )}
 </div>

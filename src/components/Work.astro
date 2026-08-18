@@ -7,12 +7,10 @@ const t = useTranslations(lang);
 const projects = (await getCollection('projects', (p) => p.data.featured))
   .sort((a, b) => a.data.order - b.data.order);
 const delays = ['', 'd1', 'd2', 'd3'];
-const slot = t('work.slot').replace('\\n', '<br>');
 ---
 <section id="work"><div class="page">
-  <div class="seclabel reveal"><span><span class="dot">#</span> {t('work.label')}</span><span>{`0${projects.length} / 06`}</span></div>
+  <div class="seclabel reveal"><span><span class="dot">#</span> {t('work.label')}</span><span>{String(projects.length).padStart(2, '0')}</span></div>
   <div class="workgrid">
     {projects.map((p, i) => <ProjectCard project={p} lang={lang} delay={delays[i] ?? ''} dir={i % 2 === 0 ? 'reveal-l' : 'reveal-r'} />)}
-    <div class="card slot reveal d3" set:html={slot} />
   </div>
 </div></section>
