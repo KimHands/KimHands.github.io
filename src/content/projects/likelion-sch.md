@@ -10,5 +10,5 @@ liveUrl: "https://www.likelion-sch.com/"
 repoUrl: "https://github.com/KimHands/likelion14-sch"
 area: "fullstack"
 featured: true
-order: 6
+order: 2
 ---

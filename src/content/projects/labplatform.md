@@ -9,5 +9,5 @@ tech: ["Next.js","Supabase","Claude AI","Docker"]
 repoUrl: "https://github.com/KimHands/labplatform-public"
 area: "fullstack"
 featured: true
-order: 4
+order: 1
 ---

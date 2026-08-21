@@ -8,5 +8,5 @@ summary_en: "A digital emotional-wellness platform for young adults (19–34): m
 tech: ["FastAPI","React Native","Expo","PostgreSQL"]
 area: "fullstack"
 featured: true
-order: 7
+order: 6
 ---

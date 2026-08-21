@@ -8,6 +8,6 @@ summary_en: "A workflow toolkit that configures Claude Code plugins and agents p
 tech: ["Python","Claude Code","Agent Orchestration"]
 repoUrl: "https://github.com/KimHands/ccpilot"
 area: "ai"
-featured: true
+featured: false
 order: 5
 ---
