@@ -7,12 +7,12 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
 [![Vitest](https://img.shields.io/badge/Vitest-4-6E9F18?logo=vitest&logoColor=white)](https://vitest.dev)
-[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-배포-222222?logo=github&logoColor=white)](https://kimhands.github.io)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-배포-222222?logo=github&logoColor=white)](https://kimhands.com)
 
 | 항목 | 내용 |
 |---|---|
 | 형태 | 개인 포트폴리오 정적 사이트 (한·영 이중 언어) |
-| 주소 | [kimhands.github.io](https://kimhands.github.io) |
+| 주소 | [kimhands.com](https://kimhands.com) (kimhands.github.io에서 자동 이동) |
 | 배포 | GitHub Pages — `main` push 시 GitHub Actions 자동 빌드·배포 |
 | 본인 담당 | 단독 개발 (설계 · 디자인 · 구현 · 배포) |
 
