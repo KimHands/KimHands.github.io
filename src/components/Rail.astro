@@ -3,8 +3,8 @@ import { type Lang } from '../i18n/utils';
 const { lang } = Astro.props as { lang: Lang };
 const en = lang === 'en';
 const sections = en
-  ? [['career', 'Career'], ['about', 'Stack'], ['work', 'Work'], ['records', 'Documents'], ['contact', 'Contact']]
-  : [['career', '이력'], ['about', '스택'], ['work', '작업'], ['records', '문서·기록'], ['contact', '연락']];
+  ? [['career', 'Career'], ['about', 'Stack'], ['work', 'Work'], ['problems', 'Problems'], ['records', 'Documents'], ['contact', 'Contact']]
+  : [['career', '이력'], ['about', '스택'], ['work', '작업'], ['problems', '문제 해결'], ['records', '문서·기록'], ['contact', '연락']];
 const docs = en
   ? [['/en/work/hype-checker/', 'HyperChecker write-up'], ['/workflow-overview/', 'Workflow (Korean)']]
   : [['/work/hype-checker/', 'HyperChecker 상세'], ['/workflow-overview/', '운용 체계']];

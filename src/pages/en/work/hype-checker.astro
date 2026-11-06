@@ -93,7 +93,7 @@ const doc = (path: string) => `${repo}/blob/main/${path}`;
     <li><strong>Retention is short.</strong> Videos and frames are deleted right after processing, and processing records after 7 days. Sender account IDs are not passed to external APIs; captions and public official docs are sent to Anthropic.</li>
   </ul>
 
-  <h2>Evaluation</h2>
+  <h2 id="eval">Evaluation</h2>
   <p>
     The answer set has 32 cases built from human-judged cards and adversarial examples. To pass: 👍 precision of at least 90% (automatic 👍 that a human rated 👍 or 🤔),
     zero critical errors (human 👎 → automatic 👍), at most one 👎 false positive, and at most 40% ❔ (tools whose correct answer is ❔ are left out of that ratio).
@@ -120,7 +120,7 @@ const doc = (path: string) => `${repo}/blob/main/${path}`;
     <a href={doc('docs/eval-history.md')} target="_blank" rel="noopener">eval-history (Korean) ↗</a>
   </p>
 
-  <h2>What production logs changed</h2>
+  <h2 id="fixes">What production logs changed</h2>
   <p>Reading real replies after launch turned up problems the answer set had missed.</p>
   <div class="wtable"><table>
     <thead><tr><th>Found</th><th>Cause</th><th>Fix</th></tr></thead>
@@ -133,7 +133,7 @@ const doc = (path: string) => `${repo}/blob/main/${path}`;
     </tbody>
   </table></div>
 
-  <h2>Design decision: take the criteria, not the fork</h2>
+  <h2 id="decision">Design decision: take the criteria, not the fork</h2>
   <p>
     Before using Starguard (★500, Apache-2.0) for star-manipulation detection, I read its code without installing or running it.
     Its collection layer returned partial data as if it had succeeded when errors occurred, its two key signals (lock-step and clone impersonation)

@@ -1,0 +1,24 @@
+---
+import { problems } from '../data/problems';
+import { type Lang } from '../i18n/utils';
+const { lang } = Astro.props as { lang: Lang };
+const en = lang === 'en';
+const head = en ? ['Problem', 'Cause', 'Fix'] : ['문제', '원인', '조치'];
+---
+<section id="problems"><div class="page">
+  <div class="seclabel reveal"><span><span class="dot">#</span> {en ? 'Problems solved' : '문제 해결'}</span><span>{en ? 'problem · cause · fix' : '문제 · 원인 · 조치'}</span></div>
+  <div class="problems reveal d1" role="table">
+    <div class="prow phead mono" role="row">{head.map((h) => <span role="columnheader">{h}</span>)}</div>
+    {problems.map((p) => (
+      <div class="prow" role="row">
+        <div role="cell">
+          <span class="pproj mono">{p.project}</span>
+          <p class="pproblem">{en ? p.problem_en : p.problem}</p>
+          <a class="pref" href={en ? (p.href_en ?? p.href) : p.href}>{en ? 'Details →' : '근거 →'}</a>
+        </div>
+        <p role="cell"><span class="plabel mono">{head[1]}</span>{en ? p.cause_en : p.cause}</p>
+        <p role="cell"><span class="plabel mono">{head[2]}</span>{en ? p.fix_en : p.fix}</p>
+      </div>
+    ))}
+  </div>
+</div></section>

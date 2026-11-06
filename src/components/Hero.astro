@@ -3,12 +3,29 @@ import Terminal from './Terminal.astro';
 import { useTranslations, type Lang } from '../i18n/utils';
 const { lang } = Astro.props as { lang: Lang };
 const t = useTranslations(lang);
+const en = lang === 'en';
+const proofs = en
+  ? [
+      ['/en/work/hype-checker/', 'Runs HyperChecker, an agent that fact-checks dev tools in Reels, as a public service'],
+      ['/en/work/hype-checker/#eval', 'Evaluated on 32 human-labeled cases with a holdout, limits published'],
+      ['/evidence/cisc-s26-paper.pdf', "DRM security paper with Tamarin formal verification, accepted at CISC-S'26"],
+    ]
+  : [
+      ['/work/hype-checker/', '릴스 속 개발 도구를 확인하는 에이전트 HyperChecker를 공개 서비스로 운영'],
+      ['/work/hype-checker/#eval', '사람이 판정한 정답셋 32건과 홀드아웃으로 평가하고 한계까지 공개'],
+      ['/evidence/cisc-s26-paper.pdf', "Tamarin 형식 검증을 쓴 DRM 보안 논문 CISC-S'26 채택"],
+    ];
 ---
 <header class="hero"><div class="page">
   <div class="grid">
     <div>
       <h1 class="reveal">Kim Jong Gun</h1>
       <p class="lead reveal d1">{t('hero.lead.pre')}<span class="hl">{t('hero.lead.hl')}</span>{t('hero.lead.post')}</p>
+      <ul class="proofs reveal d1">
+        {proofs.map(([href, text]) => (
+          <li><a href={href} target={href.endsWith('.pdf') ? '_blank' : undefined} rel={href.endsWith('.pdf') ? 'noopener' : undefined}>{text}</a></li>
+        ))}
+      </ul>
       <div class="herolinks reveal d2">
         <a class="go" href="#work">{t('hero.work')}</a>
         <a class="muted" href="#" data-soon>{t('hero.resume')}</a>

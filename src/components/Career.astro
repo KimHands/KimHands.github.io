@@ -67,22 +67,28 @@ const groups: Group[] = [
 const label = lang === 'en' ? 'Career' : '이력';
 const note = lang === 'en' ? 'activities & awards' : '활동 · 수상';
 const delays = ['', 'd1', 'd2', 'd3'];
+// Two balanced columns on wide screens (group indexes); one column, same order, on narrow ones.
+const columns = [[0, 1, 3], [2, 4]];
 ---
 <section id="career"><div class="page">
   <div class="seclabel reveal"><span><span class="dot">#</span> {label}</span><span>{note}</span></div>
   <div class="timeline">
-    {groups.map((g, gi) => (
-      <div class={`tgroup reveal ${delays[gi] ?? ''}`}>
-        <div class="tperiod">{g.period}</div>
-        <div class="tbody">
-          <h3 class="trole">{lang === 'en' ? g.role_en : g.role}</h3>
-          <ul class="titems">
-            {g.items.map((it) => {
-              const t = lang === 'en' ? it.text_en : it.text;
-              return <li>{it.href ? <a href={it.href} target="_blank" rel="noopener">{t} ↗</a> : t}</li>;
-            })}
-          </ul>
-        </div>
+    {columns.map((col) => (
+      <div class="tcol">
+        {col.map((gi) => groups[gi]).map((g, i) => (
+          <div class={`tgroup reveal ${delays[i] ?? ''}`}>
+            <div class="tperiod">{g.period}</div>
+            <div class="tbody">
+              <h3 class="trole">{lang === 'en' ? g.role_en : g.role}</h3>
+              <ul class="titems">
+                {g.items.map((it) => {
+                  const t = lang === 'en' ? it.text_en : it.text;
+                  return <li>{it.href ? <a href={it.href} target="_blank" rel="noopener">{t} ↗</a> : t}</li>;
+                })}
+              </ul>
+            </div>
+          </div>
+        ))}
       </div>
     ))}
   </div>
