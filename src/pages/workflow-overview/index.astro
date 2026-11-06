@@ -31,7 +31,7 @@ const opsmith = 'https://github.com/KimHands/opsmith';
   </p>
   <ul>
     <li><strong>전역 규칙:</strong> 모든 세션에 주입됩니다. 폴더 규칙, 작업 배분, 안전 게이트, 검증, 선행 실측, 기록 위치를 정합니다.</li>
-    <li><strong>프로젝트 규칙:</strong> 프로젝트 루트의 <code>CLAUDE.md</code> 첫 줄이 <code>@AGENTS.md</code>를 불러옵니다. 이 파일이 없으면 세션 시작 훅이 만들어 줍니다.</li>
+    <li><strong>프로젝트 규칙:</strong> 프로젝트 루트의 <code>CLAUDE.md</code> 첫 줄이 <code>@AGENTS.md</code>를 불러옵니다. 빠뜨리면 세션 시작 훅이 보완합니다.</li>
     <li><strong>형식별 규칙:</strong> 발표자료·한글 문서·웹·논문·검증 절차는 따로 두고, 그 작업을 할 때만 읽게 합니다.</li>
   </ul>
   <p>
@@ -41,7 +41,7 @@ const opsmith = 'https://github.com/KimHands/opsmith';
 
   <h2 id="sessions">폴더와 세션</h2>
   <ul>
-    <li><strong>마감 기준으로 나눕니다.</strong> 마감·제출이 있는 산출물은 <code>Projects/</code>, 끝이 없는 진로·이력은 <code>Career/</code>, 미분류는 <code>Inbox/</code>(2주 안에 승격 아니면 삭제), 운용 계층은 <code>~/Ops/</code>입니다.</li>
+    <li><strong>마감 기준으로 나눕니다.</strong> 마감·제출이 있는 산출물은 <code>Projects/</code>, 끝이 없는 진로·이력은 <code>Career/</code>, 미분류는 <code>Inbox/</code>(2주 안에 승격 아니면 삭제), 규칙·스크립트·기록을 담은 운용 계층은 따로 둡니다.</li>
     <li><strong>프로젝트 폴더 이름은 바꾸지 않습니다.</strong> 기억이 폴더 경로에 묶여 있어서, 이름을 바꾸거나 하위 폴더에서 세션을 열면 기억이 갈라집니다. 세션 시작 훅이 하위 폴더 진입을 경고합니다.</li>
     <li><strong>세션은 Orca로 병렬로 돌립니다.</strong> 프로젝트마다 세션을 따로 띄우고, 같은 레포에서 나눠 할 일은 워크트리로 격리합니다.</li>
     <li><strong>분류만 하는 허브 세션이 있습니다.</strong> 할 일이나 자료를 던지면 어느 프로젝트 세션으로 보낼지 판단만 하고, 실행은 그 세션에 넘깁니다. 새 코드 없이 문서와 기존 도구로만 만들었고, 보내기 전에 매번 확인을 받습니다.</li>
@@ -49,7 +49,7 @@ const opsmith = 'https://github.com/KimHands/opsmith';
 
   <h2 id="routing">작업 배분: 로컬 LLM과 Claude</h2>
   <p>
-    맥에 LM Studio를 상시 띄워 두고(<code>localhost:1234</code>, OpenAI 호환), 빠른 7B 모델과 주력 30B 모델을 씁니다.
+    맥에 LM Studio를 상시 띄워 두고 빠른 7B 모델과 주력 30B 모델을 씁니다.
     커밋 메시지 초안, 짧은 요약, 명령 설명, 이름 짓기처럼 작고 반복되는 일은 로컬로 넘깁니다.
     어려운 디버깅, 여러 파일에 걸친 변경, 설계, 검증은 넘기지 않습니다.
   </p>
@@ -72,6 +72,7 @@ const opsmith = 'https://github.com/KimHands/opsmith';
   <p>
     이 사이트를 개편할 때도 같은 절차를 거쳤습니다. Codex는 프로젝트 소개 하나의 과장과 테스트의 우회 경로를 찾았고,
     둘 다 실측으로 확인한 뒤 고쳤습니다. 반대로 스크린샷 7장 중 6장을 바꾸라는 제안은 대안 화면을 직접 비교해 보고 대부분 기각했습니다.
+    (<a href="https://github.com/KimHands/KimHands.github.io/pull/1" target="_blank" rel="noopener">PR #1</a>)
   </p>
   <p class="note">
     비대화형으로 실행한 Codex가 입력을 기다리며 멈추는 문제가 규칙을 만든 뒤에도 세 번 재발했습니다.
@@ -83,13 +84,11 @@ const opsmith = 'https://github.com/KimHands/opsmith';
     결제·정산, 삭제(파일·DB·인프라), 외부 발송, 외부 게시·배포, 권한 변경은 실행 전에 반드시 사람에게 확인받습니다.
   </p>
   <p>
-    권한 설정이 대표 명령을 실행 전에 묻도록 해 두었지만, 이건 과속방지턱일 뿐입니다.
-    <code>bash -c</code>나 스크립트를 거치거나 다르게 쓴 명령은 잡지 못합니다. 확인 의무는 설정과 상관없이 규칙으로 둡니다.
+    권한 설정과 명령 검사 훅이 대표적인 위험 명령을 실행 전에 묻거나 막지만, 이건 과속방지턱일 뿐 보안 경계가 아닙니다.
+    모든 형태를 잡을 수는 없으므로, 확인 의무는 설정과 상관없이 규칙으로 둡니다.
   </p>
   <p>
-    명령 검사 훅도 하나 둡니다. 프로세스를 이름 패턴으로 일괄 종료하는 <code>pkill -f</code>와 <code>killall</code>을 막고,
-    공개 레포에 푸시할 때만 올라갈 커밋과 파일 목록을 보여 주고 확인을 받습니다.
-    이 훅도 보안 경계가 아니라 보강으로 설계했습니다. 셸 파서를 만들지 않고, 확실히 판단할 수 있는 형태만 판정합니다.
+    명령 검사 훅은 비공개 레포라고 확실히 판단할 수 있는 푸시만 그냥 통과시키고, 공개 레포이거나 판단이 서지 않으면 확인을 받습니다.
   </p>
 
   <h2 id="memory">기억과 기록</h2>
@@ -131,6 +130,6 @@ const opsmith = 'https://github.com/KimHands/opsmith';
   <ul>
     <li>2026-11-07 기준입니다. 규칙 문서가 바뀌면 이 페이지도 다시 대조해 고칩니다.</li>
     <li>한 사람의 맥 한 대를 위한 체계입니다. 팀 환경에 그대로 옮기는 것을 전제로 만들지 않았습니다.</li>
-    <li>내부 주소, 서버 구성, 비공개 프로젝트, 계정 정보는 적지 않았습니다.</li>
+    <li>내부 주소, 서버 구성, 보안 장치의 세부 판정 방식, 비공개 프로젝트, 계정 정보는 적지 않았습니다.</li>
   </ul>
 </Writeup>

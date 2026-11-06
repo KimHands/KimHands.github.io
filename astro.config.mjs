@@ -2,6 +2,6 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://kimhands.github.io',
+  site: 'https://kimhands.com',
   integrations: [sitemap()],
 });
