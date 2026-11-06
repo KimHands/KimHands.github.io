@@ -5,17 +5,25 @@ import Hero from '../../components/Hero.astro';
 import Career from '../../components/Career.astro';
 import Stack from '../../components/Stack.astro';
 import Work from '../../components/Work.astro';
+import Records from '../../components/Records.astro';
+import Rail from '../../components/Rail.astro';
 import Contact from '../../components/Contact.astro';
 import Footer from '../../components/Footer.astro';
 const lang = 'en' as const;
 ---
 <Base title="Jonggun Kim — AI Agent &amp; MCP Engineer" description="Portfolio of Jonggun Kim — an AI agent and MCP engineer who builds robust agents for security domains." lang={lang}>
   <Nav lang={lang} />
-  <Hero lang={lang} />
-  <Career lang={lang} />
-  <Stack lang={lang} />
-  <Work lang={lang} />
-  <Contact lang={lang} />
+  <div class="shell">
+    <Rail lang={lang} />
+    <div class="shell-main">
+      <Hero lang={lang} />
+      <Career lang={lang} />
+      <Stack lang={lang} />
+      <Work lang={lang} />
+      <Records lang={lang} />
+      <Contact lang={lang} />
+    </div>
+  </div>
   <Footer />
 </Base>
 <script src="../../scripts/reveal.ts"></script>

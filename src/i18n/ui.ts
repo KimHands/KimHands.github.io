@@ -3,7 +3,7 @@ export const defaultLang = 'ko';
 
 export const ui = {
   ko: {
-    'nav.work': 'Work', 'nav.about': 'About', 'nav.blog': 'Blog', 'nav.contact': 'Contact',
+    'nav.work': 'Work', 'nav.about': 'About', 'nav.workflow': 'Workflow', 'nav.blog': 'Blog', 'nav.contact': 'Contact',
     'hero.lead.pre': '',
     'hero.lead.hl': 'AI 에이전트',
     'hero.lead.post': '와 그것을 안정적으로 운영하는 시스템을 만드는 개발자입니다.',
@@ -15,7 +15,7 @@ export const ui = {
     'contact.email': '이메일 보내기 →',
   },
   en: {
-    'nav.work': 'Work', 'nav.about': 'About', 'nav.blog': 'Blog', 'nav.contact': 'Contact',
+    'nav.work': 'Work', 'nav.about': 'About', 'nav.workflow': 'Workflow', 'nav.blog': 'Blog', 'nav.contact': 'Contact',
     'hero.lead.pre': 'A developer who builds ',
     'hero.lead.hl': 'AI agents',
     'hero.lead.post': ' and the systems that run them reliably.',

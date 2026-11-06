@@ -1,0 +1,43 @@
+---
+import { type Lang } from '../i18n/utils';
+const { lang } = Astro.props as { lang: Lang };
+const en = lang === 'en';
+const sections = en
+  ? [['career', 'Career'], ['about', 'Stack'], ['work', 'Work'], ['records', 'Documents'], ['contact', 'Contact']]
+  : [['career', '이력'], ['about', '스택'], ['work', '작업'], ['records', '문서·기록'], ['contact', '연락']];
+const docs = en
+  ? [['/en/work/hype-checker/', 'HyperChecker write-up'], ['/workflow-overview/', 'Workflow (Korean)']]
+  : [['/work/hype-checker/', 'HyperChecker 상세'], ['/workflow-overview/', '운용 체계']];
+---
+<aside class="rail" aria-label={en ? 'On this page' : '이 페이지 목차'}>
+  <nav class="rail-in">
+    <ul class="rail-sec">
+      {sections.map(([id, label]) => <li><a href={`#${id}`} data-rail={id}><span class="dot">#</span> {label}</a></li>)}
+    </ul>
+    <ul class="rail-docs">
+      {docs.map(([href, label]) => <li><a href={href}>{label} →</a></li>)}
+    </ul>
+  </nav>
+</aside>
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    var links = document.querySelectorAll('.rail [data-rail]');
+    if (!links.length || !('IntersectionObserver' in window)) return;
+    var byId = {};
+    links.forEach(function (a) { byId[a.dataset.rail] = a; });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        links.forEach(function (a) { a.classList.remove('on'); });
+        if (byId[e.target.id]) byId[e.target.id].classList.add('on');
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    Object.keys(byId).forEach(function (id) { var s = document.getElementById(id); if (s) io.observe(s); });
+    var last = links[links.length - 1];
+    window.addEventListener('scroll', function () {
+      if (innerHeight + scrollY < document.documentElement.scrollHeight - 4) return;
+      links.forEach(function (a) { a.classList.remove('on'); });
+      last.classList.add('on');
+    }, { passive: true });
+  });
+</script>
