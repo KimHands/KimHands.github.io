@@ -97,15 +97,21 @@ section{padding:88px 0}
 .card{display:block;text-decoration:none;color:inherit;border:1px solid var(--hairline);
   border-radius:14px;padding:28px;position:relative;overflow:hidden;transition:border-color .15s}
 .card:hover{border-color:var(--ink)}
+.card.flagship{grid-column:1/-1}
+.card.flagship p{max-width:640px}
+.card .shot{margin-bottom:22px}
+.card .shot img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;
+  border:1px solid var(--hairline);border-radius:8px;background:var(--soft)}
+.card .shot figcaption{margin-top:8px;font-family:var(--mono);font-size:11.5px;color:var(--body)}
 .card:not(.slot)::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;opacity:0;
   background:radial-gradient(320px circle at var(--mx,50%) var(--my,50%),
     color-mix(in srgb,var(--accent) 13%,transparent),transparent 62%);
   transition:opacity .3s ease}
 .card:not(.slot):hover::before{opacity:1}
 .card>*{position:relative;z-index:1}
-.card .rtop{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
+.card .rtop{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;column-gap:14px;row-gap:4px}
 .card h3{font-size:21px;font-weight:600;letter-spacing:-.02em}
-.card .meta{font-size:12.5px;color:var(--mute);white-space:nowrap}
+.card .meta{font-size:12.5px;color:var(--mute)}
 .card p{margin-top:10px;font-size:15.5px;color:var(--charcoal);line-height:1.55}
 .card .tech{margin-top:16px;font-family:var(--mono);font-size:12.5px;color:var(--body)}
 .card .links{margin-top:18px;font-size:14px;display:flex;gap:18px;flex-wrap:wrap}
@@ -163,3 +169,27 @@ section{padding:88px 0}
   .srow{grid-template-columns:1fr;gap:6px}.tgroup{grid-template-columns:1fr;gap:10px}
   .page{padding:0 24px}section{padding:64px 0}
 }
+.writeup{max-width:calc(var(--measure) + 80px);padding-top:56px;padding-bottom:96px}
+.writeup .wtop{display:flex;justify-content:space-between;font-size:13px}
+.writeup .wtop a{color:var(--mute);text-decoration:none}
+.writeup .wtop a:hover{color:var(--ink)}
+.writeup h1{font-size:40px;font-weight:600;letter-spacing:-.03em;color:var(--ink);margin-top:40px}
+.writeup .wlead{font-size:19px;line-height:1.6;color:var(--charcoal);margin-top:16px}
+.writeup .wmeta{font-size:12.5px;color:var(--body);margin-top:14px}
+.writeup h2{font-size:21px;font-weight:600;letter-spacing:-.02em;color:var(--ink);
+  margin-top:56px;padding-top:24px;border-top:1px solid var(--hairline)}
+.writeup p,.writeup li{font-size:16px;line-height:1.7;color:var(--charcoal)}
+.writeup p{margin-top:14px}
+.writeup ul,.writeup ol{margin-top:14px;padding-left:20px;display:flex;flex-direction:column;gap:8px;list-style:disc}
+.writeup li::marker{color:var(--mute)}
+.writeup strong{color:var(--ink);font-weight:600}
+.writeup a{color:var(--accent);text-decoration:none;border-bottom:1px solid currentColor}
+.writeup code{font-family:var(--mono);font-size:.88em}
+.writeup pre{margin-top:16px;padding:18px 20px;background:var(--soft);border:1px solid var(--hairline);
+  border-radius:10px;font-family:var(--mono);font-size:13px;line-height:1.65;color:var(--ink);overflow-x:auto}
+.writeup .wtable{margin-top:16px;overflow-x:auto}
+.writeup table{width:100%;border-collapse:collapse;font-size:14.5px}
+.writeup th,.writeup td{text-align:left;vertical-align:top;padding:10px 12px 10px 0;border-bottom:1px solid var(--hairline);color:var(--charcoal);line-height:1.55}
+.writeup th{font-family:var(--mono);font-size:12px;font-weight:400;color:var(--body);text-transform:uppercase;letter-spacing:.04em}
+.writeup .note{font-size:14.5px;color:var(--body)}
+@media(max-width:880px){.writeup{padding-top:36px}.writeup h1{font-size:32px}}

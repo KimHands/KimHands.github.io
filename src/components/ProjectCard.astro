@@ -1,20 +1,32 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import type { Lang } from '../i18n/utils';
-const { project, lang, delay, dir = '' } = Astro.props as
-  { project: CollectionEntry<'projects'>; lang: Lang; delay: string; dir?: string };
+const { project, lang, delay, dir = '', flagship = false } = Astro.props as
+  { project: CollectionEntry<'projects'>; lang: Lang; delay: string; dir?: string; flagship?: boolean };
 const d = project.data;
 const title = lang === 'en' ? d.title_en : d.title;
 const role = lang === 'en' ? d.role_en : d.role;
 const summary = lang === 'en' ? d.summary_en : d.summary;
+const shotCaption = {
+  live: lang === 'en' ? 'Live screen · captured 2026-11' : '운영 화면 · 2026-11 촬영',
+  demo: lang === 'en' ? 'Demo data · from the repo' : '데모 데이터 · 레포 스크린샷',
+};
+const writeupHref = `${lang === 'en' ? '/en' : ''}/work/${project.id}/`;
 const liveLabel = d.liveUrl ? d.liveUrl.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '') : null;
 ---
-<div class={`card reveal ${dir} ${delay}`}>
+<div class:list={['card reveal', dir, delay, { flagship }]}>
+  {d.shot && (
+    <figure class="shot">
+      <img src={d.shot.src} alt={lang === 'en' ? d.shot.alt_en : d.shot.alt} loading="lazy" decoding="async" />
+      <figcaption>{shotCaption[d.shot.source]}</figcaption>
+    </figure>
+  )}
   <div class="rtop"><h3>{title}</h3><span class="meta">{role}</span></div>
   <p>{summary}</p>
   <div class="tech">{d.tech.join(' · ')}</div>
-  {(d.liveUrl || d.repoUrl) && (
+  {(d.writeup || d.liveUrl || d.repoUrl) && (
     <div class="links">
+      {d.writeup && <a class="live" href={writeupHref}>{lang === 'en' ? 'Read the write-up →' : '자세히 읽기 →'}</a>}
       {d.liveUrl && <a class="live" href={d.liveUrl} target="_blank" rel="noopener">{liveLabel} ↗</a>}
       {d.repoUrl && <a class="src" href={d.repoUrl} target="_blank" rel="noopener">{lang === 'en' ? 'Code ↗' : '코드 ↗'}</a>}
     </div>
