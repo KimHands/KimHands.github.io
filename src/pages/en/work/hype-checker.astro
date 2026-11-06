@@ -25,8 +25,8 @@ const doc = (path: string) => `${repo}/blob/main/${path}`;
 
   <h2>Principle: code decides the verdict</h2>
   <p>
-    <strong>It never asks an LLM "is this tool good?"</strong> Code sets the grade and score from measurements;
-    the LLM only finds evidence in the source text. When it cannot confirm something, it withholds a verdict instead of guessing.
+    <strong>It never asks an LLM "is this tool good?"</strong> Code calculates the grade and score from measurements.
+    The LLM handles jobs such as extracting tools, reading on-screen text, and finding evidence in the source, and its output is checked by code before it affects a verdict. When it cannot confirm something, it withholds a verdict instead of guessing.
   </p>
   <p>
     The grade answers "how well was the post verified?" The score (0–10) answers "how strongly is the tool itself recommended?"
@@ -90,13 +90,13 @@ const doc = (path: string) => `${repo}/blob/main/${path}`;
     <li><strong>Posts are untrusted input.</strong> Captions, transcripts, on-screen text, and READMEs go into <code>&lt;untrusted&gt;</code> blocks as data only, and output is limited to fixed values and source quotes, which reduces how much instructions inside a video can affect the verdict.</li>
     <li><strong>Tools under review are never executed.</strong> No installs, no <code>npx</code>; only public metadata and docs are read. Subprocesses are allow-listed, and the container runs with a read-only root and all capabilities dropped.</li>
     <li><strong>Cost and abuse are capped.</strong> Two requests per account per day, 60 in total, and an estimated $2 per day. Each item has a 180-second deadline, and plain-text DMs never reach Claude.</li>
-    <li><strong>Personal data is not kept.</strong> Videos and frames are deleted right after processing, and processing records after 7 days. Sender account IDs are not passed to external APIs.</li>
+    <li><strong>Retention is short.</strong> Videos and frames are deleted right after processing, and processing records after 7 days. Sender account IDs are not passed to external APIs; captions and public official docs are sent to Anthropic.</li>
   </ul>
 
   <h2>Evaluation</h2>
   <p>
-    The answer set has 32 cases built from human-judged cards and adversarial examples. To pass: 👍 precision of at least 90%,
-    zero critical errors (human 👎 → automatic 👍), at most one 👎 false positive, and at most 40% ❔.
+    The answer set has 32 cases built from human-judged cards and adversarial examples. To pass: 👍 precision of at least 90% (automatic 👍 that a human rated 👍 or 🤔),
+    zero critical errors (human 👎 → automatic 👍), at most one 👎 false positive, and at most 40% ❔ (tools whose correct answer is ❔ are left out of that ratio).
     Results vary between runs, so it was run several times and compared (2026-11-03).
   </p>
   <div class="wtable"><table>
@@ -115,8 +115,8 @@ const doc = (path: string) => `${repo}/blob/main/${path}`;
     In 24 of the 27 misses, the right repo was in the top 3 but same-name clones and impersonators kept it from being settled.
   </p>
   <p class="note">
-    Extraction and identification were scored as separate tasks, with a fixed denominator for identification. A separate session with no access
-    to the answer set re-judged the cases to check that exposure to the answers had not inflated the scores. Details:
+    In the earlier CLI stage, extraction and identification were scored as separate tasks, with a fixed denominator for identification. A separate session with no access
+    to the answer set picked candidates from the frames, to check that exposure to the answers had not inflated the scores. For today's DM verdicts, the table above is the whole result. Details:
     <a href={doc('docs/eval-history.md')} target="_blank" rel="noopener">eval-history (Korean) ↗</a>
   </p>
 
@@ -140,7 +140,8 @@ const doc = (path: string) => `${repo}/blob/main/${path}`;
     had bugs that broke their reasoning, and it had no automated tests.
   </p>
   <p>
-    So instead of forking, I reimplemented only its criteria (thresholds and signals) with attribution. A fork would have given a few dozen lines of constants,
+    So instead of forking, I reimplemented only its criteria, with attribution. Account-based signals cannot be computed for someone else's repo,
+    so only the star-count time-series signals and the fork/star ratio came over. A fork would have given a few dozen lines of constants,
     while fixing and maintaining it alone would have cost more.
     <a href={doc('docs/starguard-review.md')} target="_blank" rel="noopener">Review notes (Korean) ↗</a>
   </p>
