@@ -91,7 +91,7 @@ const doc = (path: string) => `${repo}/blob/main/${path}`;
     <li><strong>개인정보를 오래 들고 있지 않습니다.</strong> 영상과 프레임은 처리 직후 지우고, 처리 기록은 7일 뒤 삭제합니다. 외부 API에는 보낸 계정 ID를 넘기지 않습니다. Anthropic으로는 캡션과 공개 공식 문서가 전송됩니다.</li>
   </ul>
 
-  <h2>평가</h2>
+  <h2 id="eval">평가</h2>
   <p>
     사람이 판정한 카드와 적대적 사례로 만든 정답셋 32건을 씁니다. 통과 기준은 👍 정밀도 90% 이상(자동 👍 중 사람이 👍 또는 🤔로 본 비율),
     치명 오류(사람 👎 → 자동 👍) 0건, 👎 오탐 1건 이하, ❔ 비율 40% 이하(정답이 ❔인 도구는 분모에서 제외)입니다.
@@ -118,7 +118,7 @@ const doc = (path: string) => `${repo}/blob/main/${path}`;
     <a href={doc('docs/eval-history.md')} target="_blank" rel="noopener">eval-history ↗</a>
   </p>
 
-  <h2>공개 뒤 실제 로그로 고친 것</h2>
+  <h2 id="fixes">공개 뒤 실제 로그로 고친 것</h2>
   <p>공개 후 실제 답장을 읽어 보니, 정답셋이 잡지 못한 문제가 나왔습니다.</p>
   <div class="wtable"><table>
     <thead><tr><th>발견</th><th>원인</th><th>조치</th></tr></thead>
@@ -131,7 +131,7 @@ const doc = (path: string) => `${repo}/blob/main/${path}`;
     </tbody>
   </table></div>
 
-  <h2>설계 판단: 포크하지 않고 기준만 가져오기</h2>
+  <h2 id="decision">설계 판단: 포크하지 않고 기준만 가져오기</h2>
   <p>
     스타 조작 탐지에는 공개 도구 Starguard(★500, Apache-2.0)를 쓸 수 있는지 먼저 코드를 읽었습니다.
     설치·실행은 하지 않았습니다. 수집 계층은 오류가 나도 그때까지 받은 데이터만 성공처럼 반환했고,
