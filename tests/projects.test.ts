@@ -22,10 +22,13 @@ const unlinkableRepos = new Set([
   'kimhands/islab-platform', 'isl-hedgehog/islab-platform',
   'kimhands/hype-checker-private',
 ]);
-// Dead hosts, an unowned domain, and an internal service host.
+// Dead hosts and an unowned domain.
 const unlinkableHosts = new Set([
   'likelion-sch.com', 'www.likelion-sch.com', 'hedgehog-web-ctf.vercel.app',
 ]);
+// Only these subdomains of the own domain are public; the rest are internal services.
+const publicOwnHosts = new Set(['sch-meet.kimhands.com']);
+const isInternalOwnHost = (host: string) => host.endsWith('.kimhands.com') && !publicOwnHosts.has(host);
 
 const siteSourceFiles = readdirSync(srcDir, { recursive: true, encoding: 'utf8' })
   .filter((f) => /\.(md|astro|ts)$/.test(f));
@@ -43,6 +46,7 @@ describe('project content', () => {
       for (const url of urlsIn(readFileSync(join(srcDir, file), 'utf8'))) {
         const host = url.hostname.toLowerCase();
         expect(unlinkableHosts.has(host), `${file}: ${url}`).toBe(false);
+        expect(isInternalOwnHost(host), `${file}: ${url}`).toBe(false);
         if (host === 'github.com') expect(unlinkableRepos.has(githubRepoOf(url)), `${file}: ${url}`).toBe(false);
       }
     }

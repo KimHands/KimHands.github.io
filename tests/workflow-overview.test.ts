@@ -13,7 +13,7 @@ const internalPatterns: [string, RegExp][] = [
   ['tailnet host', /\.ts\.net/],
   ['IPv4 address', /\b(?!127\.0\.0\.1)\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/],
   ['private repo name', /keylessplay|llm-wiki|oci-server|lab-manage-server|career-roadmap/i],
-  ['service host other than sch-meet', /\b(?!sch-meet\.)[a-z0-9-]+\.kimhands\.com/],
+  ['service host other than sch-meet', /(?<![\w-])(?!sch-meet\.)[a-z0-9-]+\.kimhands\.com/],
 ];
 
 describe('workflow-overview page', () => {
