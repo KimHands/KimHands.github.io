@@ -7,7 +7,12 @@ summary: "청년(19–34세)을 위한 디지털 정서 웰니스 앱. 진단·�
 summary_en: "A digital emotional-wellness app for young adults (19–34), scoped as a non-diagnostic, non-medical-device tool. Three LLM guardrails — an input crisis filter before any model call, an output crisis check, and an output banned-phrase check — with no claims about detection accuracy or efficacy."
 tech: ["React Native","Expo","FastAPI","PostgreSQL","Redis"]
 repoUrl: "https://github.com/KimHands/bridge"
+shot:
+  src: "/shots/bridge.jpg"
+  alt: "Bridge 홈 화면의 오늘의 기분 기록"
+  alt_en: "Bridge home screen with mood logging"
+  source: "demo"
 area: "fullstack"
 featured: true
-order: 3
+order: 4
 ---

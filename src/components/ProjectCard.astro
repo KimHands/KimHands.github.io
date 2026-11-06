@@ -7,9 +7,19 @@ const d = project.data;
 const title = lang === 'en' ? d.title_en : d.title;
 const role = lang === 'en' ? d.role_en : d.role;
 const summary = lang === 'en' ? d.summary_en : d.summary;
+const shotCaption = {
+  live: lang === 'en' ? 'Live screen · captured 2026-11' : '운영 화면 · 2026-11 촬영',
+  demo: lang === 'en' ? 'Demo data · from the repo' : '데모 데이터 · 레포 스크린샷',
+};
 const liveLabel = d.liveUrl ? d.liveUrl.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '') : null;
 ---
 <div class:list={['card reveal', dir, delay, { flagship }]}>
+  {d.shot && (
+    <figure class="shot">
+      <img src={d.shot.src} alt={lang === 'en' ? d.shot.alt_en : d.shot.alt} loading="lazy" decoding="async" />
+      <figcaption>{shotCaption[d.shot.source]}</figcaption>
+    </figure>
+  )}
   <div class="rtop"><h3>{title}</h3><span class="meta">{role}</span></div>
   <p>{summary}</p>
   <div class="tech">{d.tech.join(' · ')}</div>

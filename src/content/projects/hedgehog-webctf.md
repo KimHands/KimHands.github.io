@@ -7,6 +7,11 @@ summary: "OWASP Top 10:2025를 직접 뚫어 보는 체험형 웹 해킹 CTF. �
 summary_en: "A hands-on web-hacking CTF built around the OWASP Top 10:2025, with 21 challenges I authored for beginners, majors, and practice. Vulnerabilities are simulated with no real database or shell, outbound traffic is blocked, and the build checks bundles for leaked flags."
 tech: ["Next.js","SQLite","Docker","k3s"]
 liveUrl: "https://hedgehog-server.tail53c7cd.ts.net:10000/"
+shot:
+  src: "/shots/hedgehog-webctf.jpg"
+  alt: "WebCTF 로비의 연습 문제와 OWASP 분류별 문제 카드"
+  alt_en: "WebCTF lobby with the practice challenge and OWASP-category challenge cards"
+  source: "live"
 area: "security"
 featured: true
 order: 10

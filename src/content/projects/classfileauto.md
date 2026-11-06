@@ -7,6 +7,11 @@ summary: "순천향대 Eclass 강의 자료를 브라우저에서 한 번에 내
 summary_en: "A web app that bulk-downloads course materials from the campus LMS. Credentials are RSA-encrypted in transit and the password is never stored on the server or in the session; a campus-domain allow-list blocks SSRF and login attempts are rate-limited."
 tech: ["Next.js","node-forge","iron-session","Vercel"]
 liveUrl: "https://class-file-auto-web.vercel.app"
+shot:
+  src: "/shots/classfileauto.jpg"
+  alt: "ClassFileAuto 로그인 화면과 개인정보 제공 동의 칸"
+  alt_en: "ClassFileAuto sign-in screen with the data-sharing consent box"
+  source: "live"
 area: "security"
 featured: true
 order: 11

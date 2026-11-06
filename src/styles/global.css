@@ -99,15 +99,19 @@ section{padding:88px 0}
 .card:hover{border-color:var(--ink)}
 .card.flagship{grid-column:1/-1}
 .card.flagship p{max-width:640px}
+.card .shot{margin-bottom:22px}
+.card .shot img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;
+  border:1px solid var(--hairline);border-radius:8px;background:var(--soft)}
+.card .shot figcaption{margin-top:8px;font-family:var(--mono);font-size:11.5px;color:var(--body)}
 .card:not(.slot)::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;opacity:0;
   background:radial-gradient(320px circle at var(--mx,50%) var(--my,50%),
     color-mix(in srgb,var(--accent) 13%,transparent),transparent 62%);
   transition:opacity .3s ease}
 .card:not(.slot):hover::before{opacity:1}
 .card>*{position:relative;z-index:1}
-.card .rtop{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
+.card .rtop{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;column-gap:14px;row-gap:4px}
 .card h3{font-size:21px;font-weight:600;letter-spacing:-.02em}
-.card .meta{font-size:12.5px;color:var(--mute);white-space:nowrap}
+.card .meta{font-size:12.5px;color:var(--mute)}
 .card p{margin-top:10px;font-size:15.5px;color:var(--charcoal);line-height:1.55}
 .card .tech{margin-top:16px;font-family:var(--mono);font-size:12.5px;color:var(--body)}
 .card .links{margin-top:18px;font-size:14px;display:flex;gap:18px;flex-wrap:wrap}

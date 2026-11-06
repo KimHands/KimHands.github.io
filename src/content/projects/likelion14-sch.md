@@ -7,6 +7,11 @@ summary: "멋쟁이사자처럼 순천향대 14기의 모집·심사·교육 운
 summary_en: "Recruiting, screening, and education platform for LikeLion SCH's 14th cohort. I handled development and operations except design; the service was retired in July 2026. Hashed verification codes, CSRF protection, rate limiting, and upload signature checks."
 tech: ["React","Django","SQLite","Docker","Nginx"]
 repoUrl: "https://github.com/KimHands/likelion14-sch"
+shot:
+  src: "/shots/likelion14-sch.jpg"
+  alt: "멋사 SCH 운영 플랫폼 관리자 페이지"
+  alt_en: "LikeLion SCH platform admin page"
+  source: "demo"
 area: "fullstack"
 featured: true
 order: 12

@@ -7,7 +7,12 @@ summary: "로컬 파일을 분류하고 마인드맵으로 보여 주는 프라�
 summary_en: "A privacy-first desktop app that classifies local files and shows them as a mind map. File contents go only to a loopback LLM, whose output is treated as untrusted (allow-list plus a confidence cap). No code path overwrites files, and it ships a read-only MCP server with no file-moving tools."
 tech: ["Electron","React","FastAPI","SQLite","MCP"]
 repoUrl: "https://github.com/KimHands/clasp"
+shot:
+  src: "/shots/clasp.jpg"
+  alt: "clasp가 샘플 폴더를 분류해 보여 주는 마인드맵"
+  alt_en: "clasp mind map of a classified sample folder"
+  source: "demo"
 area: "ai"
 featured: true
-order: 5
+order: 6
 ---

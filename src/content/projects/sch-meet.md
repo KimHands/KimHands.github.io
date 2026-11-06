@@ -8,7 +8,12 @@ summary_en: "A timetable-based meeting scheduler for Soonchunhyang students, wit
 tech: ["React","Django","PostgreSQL","Docker","Caddy"]
 liveUrl: "https://sch-meet.kimhands.com"
 repoUrl: "https://github.com/KimHands/sch-meet"
+shot:
+  src: "/shots/sch-meet.jpg"
+  alt: "sch-meet 추천 결과 1순위 시간과 추천 근거"
+  alt_en: "sch-meet top-ranked meeting slot with its reasons"
+  source: "demo"
 area: "fullstack"
 featured: true
-order: 4
+order: 5
 ---

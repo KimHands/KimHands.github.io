@@ -1,8 +1,9 @@
 import { describe, it, expect } from 'vitest';
-import { readdirSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-const projectDir = join(__dirname, '../src/content/projects');
+const srcDir = join(__dirname, '../src');
+const projectDir = join(srcDir, 'content/projects');
 const projectFiles = readdirSync(projectDir).filter((f) => f.endsWith('.md'));
 const readProject = (file: string) => readFileSync(join(projectDir, file), 'utf8');
 
@@ -12,12 +13,24 @@ const expectedProjects = [
   'hedgehog-webctf', 'classfileauto', 'likelion14-sch',
 ];
 
-// Private repos, archived repos, dead hosts, and a domain the user does not own.
-const forbiddenUrlParts = [
-  'labplatform-public', 'ClassFileAuto_Web', 'classfileauto-web', 'Hedgehog_WebCTF',
-  'hedgehog-webctf"', 'hedgehog-web-ctf.vercel.app', 'likelion-sch.com',
-  'KimHands/keylessplay', 'KimHands/islab-platform', 'KimHands/ccpilot',
-];
+// Private or archived repos must never be linked.
+const unlinkableRepos = new Set([
+  'kimhands/labplatform-public', 'kimhands/labplatform', 'kimhands/ccpilot',
+  'kimhands/classfileauto_web', 'kimhands/classfileauto-web', 'kimhands/classfileauto',
+  'kimhands/hedgehog_webctf', 'kimhands/hedgehog-webctf',
+  'kimhands/keylessplay', 'kimhands/keylessplay-thesis',
+  'kimhands/islab-platform', 'isl-hedgehog/islab-platform',
+  'kimhands/hype-checker-private',
+]);
+// Dead hosts, an unowned domain, and an internal service host.
+const unlinkableHosts = new Set([
+  'likelion-sch.com', 'www.likelion-sch.com', 'hedgehog-web-ctf.vercel.app',
+]);
+
+const siteSourceFiles = readdirSync(srcDir, { recursive: true, encoding: 'utf8' })
+  .filter((f) => /\.(md|astro|ts)$/.test(f));
+const urlsIn = (text: string) => [...text.matchAll(/https?:\/\/[^\s"'`<>)]+/g)].map((m) => new URL(m[0]));
+const githubRepoOf = (url: URL) => url.pathname.split('/').slice(1, 3).join('/').toLowerCase();
 
 describe('project content', () => {
   it('lists exactly the profile projects', () => {
@@ -25,12 +38,21 @@ describe('project content', () => {
     expect(slugs).toEqual([...expectedProjects].sort());
   });
 
-  it('links no private repo, archived repo, or unowned domain', () => {
-    for (const file of projectFiles) {
-      const text = readProject(file);
-      for (const part of forbiddenUrlParts) {
-        expect(text, `${file} contains ${part}`).not.toContain(part);
+  it('links no private repo, archived repo, or unowned domain anywhere in src/', () => {
+    for (const file of siteSourceFiles) {
+      for (const url of urlsIn(readFileSync(join(srcDir, file), 'utf8'))) {
+        const host = url.hostname.toLowerCase();
+        expect(unlinkableHosts.has(host), `${file}: ${url}`).toBe(false);
+        if (host === 'github.com') expect(unlinkableRepos.has(githubRepoOf(url)), `${file}: ${url}`).toBe(false);
       }
+    }
+  });
+
+  it('points every screenshot at a file in public/', () => {
+    const shotPaths = projectFiles.flatMap((f) =>
+      [...readProject(f).matchAll(/^\s+src:\s*["']?([^"'\n]+)["']?\s*$/gm)].map((m) => m[1]));
+    for (const shotPath of shotPaths) {
+      expect(existsSync(join(__dirname, '../public', shotPath)), shotPath).toBe(true);
     }
   });
 
