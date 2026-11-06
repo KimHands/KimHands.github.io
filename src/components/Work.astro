@@ -11,6 +11,6 @@ const delays = ['', 'd1', 'd2', 'd3'];
 <section id="work"><div class="page">
   <div class="seclabel reveal"><span><span class="dot">#</span> {t('work.label')}</span><span>{String(projects.length).padStart(2, '0')}</span></div>
   <div class="workgrid">
-    {projects.map((p, i) => <ProjectCard project={p} lang={lang} delay={delays[i] ?? ''} dir={i % 2 === 0 ? 'reveal-l' : 'reveal-r'} />)}
+    {projects.map((p, i) => <ProjectCard project={p} lang={lang} delay={delays[i] ?? ''} dir={i % 2 === 0 ? 'reveal-l' : 'reveal-r'} flagship={i === 0} />)}
   </div>
 </div></section>

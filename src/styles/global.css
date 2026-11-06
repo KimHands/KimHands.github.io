@@ -97,6 +97,8 @@ section{padding:88px 0}
 .card{display:block;text-decoration:none;color:inherit;border:1px solid var(--hairline);
   border-radius:14px;padding:28px;position:relative;overflow:hidden;transition:border-color .15s}
 .card:hover{border-color:var(--ink)}
+.card.flagship{grid-column:1/-1}
+.card.flagship p{max-width:640px}
 .card:not(.slot)::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;opacity:0;
   background:radial-gradient(320px circle at var(--mx,50%) var(--my,50%),
     color-mix(in srgb,var(--accent) 13%,transparent),transparent 62%);
