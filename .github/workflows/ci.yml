@@ -16,6 +16,7 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run build
+      # velog.io answers bots with intermittent 404s and timeouts, so it is skipped.
       - name: Check links
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
@@ -26,4 +27,5 @@ jobs:
             --max-retries 2
             --timeout 20
             --accept '200..=299,429'
+            --exclude '^https://velog\.io/'
             'dist/**/*.html'
