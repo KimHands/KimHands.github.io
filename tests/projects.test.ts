@@ -56,6 +56,16 @@ describe('project content', () => {
     }
   });
 
+  it('has ko and en pages for every project marked with a write-up', () => {
+    const withWriteup = projectFiles.filter((f) => /^writeup:\s*true\s*$/m.test(readProject(f)));
+    expect(withWriteup).toContain('hype-checker.md');
+    for (const file of withWriteup) {
+      const slug = file.replace(/\.md$/, '');
+      expect(existsSync(join(srcDir, `pages/work/${slug}.astro`)), `ko ${slug}`).toBe(true);
+      expect(existsSync(join(srcDir, `pages/en/work/${slug}.astro`)), `en ${slug}`).toBe(true);
+    }
+  });
+
   it('uses unique display order', () => {
     const orders = projectFiles.map((f) => readProject(f).match(/^order:\s*(\d+)/m)?.[1]);
     expect(new Set(orders).size).toBe(orders.length);

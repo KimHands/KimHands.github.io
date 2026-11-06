@@ -20,6 +20,7 @@ const projects = defineCollection({
       source: z.enum(['live','demo']),
     }).optional(),
     area: z.enum(['security','fullstack','ai']),
+    writeup: z.boolean().default(false),
     featured: z.boolean().default(false),
     order: z.number().default(99),
   }),

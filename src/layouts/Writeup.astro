@@ -1,0 +1,26 @@
+---
+import Base from './Base.astro';
+interface Props {
+  lang: 'ko' | 'en';
+  title: string;
+  description: string;
+  lead: string;
+  meta: string;
+  otherLangHref: string;
+}
+const { lang, title, description, lead, meta, otherLangHref } = Astro.props;
+const en = lang === 'en';
+const home = en ? '/en/#work' : '/#work';
+---
+<Base title={`${title} — Kim Jong Gun`} description={description} lang={lang}>
+  <main class="page writeup">
+    <div class="wtop mono">
+      <a href={home}>{en ? '← Back to work' : '← 작업 목록'}</a>
+      <a href={otherLangHref} hreflang={en ? 'ko' : 'en'}>{en ? '한국어' : 'English'}</a>
+    </div>
+    <h1>{title}</h1>
+    <p class="wlead">{lead}</p>
+    <p class="wmeta mono">{meta}</p>
+    <slot />
+  </main>
+</Base>

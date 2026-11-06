@@ -1,0 +1,163 @@
+---
+import Writeup from '../../../layouts/Writeup.astro';
+const repo = 'https://github.com/KimHands/hype-checker';
+const doc = (path: string) => `${repo}/blob/main/${path}`;
+---
+<Writeup
+  lang="en"
+  title="HyperChecker"
+  description="An agent that checks the developer tools in an Instagram Reel against public sources and replies by DM. Design, guardrails, evaluation, and what production logs changed."
+  lead="Send an Instagram Reel by DM, and this agent checks the developer tools it mentions against public sources and replies."
+  meta="Solo project · Oct 2026 – · Running as a public service"
+  otherLangHref="/work/hype-checker/"
+>
+  <p>
+    <a href={repo} target="_blank" rel="noopener">Repository ↗</a> &nbsp;
+    <a href="https://www.instagram.com/hyper_checker/" target="_blank" rel="noopener">@hyper_checker ↗</a>
+  </p>
+
+  <h2>The problem</h2>
+  <p>
+    Reels are full of lines like "this one MCP is all you need" or "tens of thousands of stars." Checking them means finding the repo,
+    ruling out clones with the same name, comparing the claims with the README, and reading the install script.
+    HyperChecker turns that into a single share.
+  </p>
+
+  <h2>Principle: code decides the verdict</h2>
+  <p>
+    <strong>It never asks an LLM "is this tool good?"</strong> Code sets the grade and score from measurements;
+    the LLM only finds evidence in the source text. When it cannot confirm something, it withholds a verdict instead of guessing.
+  </p>
+  <p>
+    The grade answers "how well was the post verified?" The score (0–10) answers "how strongly is the tool itself recommended?"
+    The score uses only stars, recent activity, and warning signals, and the reply shows how it was calculated.
+  </p>
+  <div class="wtable"><table>
+    <thead><tr><th>Grade</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td>👍 Verified against official docs</td><td>Location, measurements, and activity check out, and the post matches the official docs</td></tr>
+      <tr><td>🤔 Use with care</td><td>Found the official location, but some claims are unverified or there are warnings</td></tr>
+      <tr><td>👎 Not recommended</td><td>Claims contradict the docs, a security placeholder package, or an impersonating clone</td></tr>
+      <tr><td>❔ Verdict withheld</td><td>Could not settle on a single official location</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Real replies</h2>
+  <p>Output from running real posts through the current code. Replies are in Korean; a confirmed tool shows the score breakdown.</p>
+  <pre>{`2. morphic — 추천 7/10 · 👍
+🔗 github.com/miurla/morphic
+⭐ 9,257 · 최근 30일 안에 업데이트
+👍 좋은 점
+ · 게시물의 '나만의 AI 검색엔진' 설명이 공식 문서와 맞아요
+ · 공식 위치 하나를 찾았어요
+📊 기본 5점 · 스타 규모 +1 · 업데이트 +1 → 7점`}</pre>
+  <p class="note">Recommended 7/10 · 👍. The post's "your own AI search engine" claim matches the official docs; one official location found. Base 5 + star count 1 + recent update 1 = 7.</p>
+  <p>When it cannot confirm, it shows candidates and says they are unconfirmed.</p>
+  <pre>{`1. puck — 추천 판단 보류 · ❔
+🔎 이 도구일 수 있어요(확정 아님): github.com/puckeditor/puck ⭐ 13,606
+⚠️ 살펴볼 점
+ · 공식 위치를 하나로 정하지 못했어요
+ · 측정한 코드 정보가 없어요`}</pre>
+  <p class="note">Verdict withheld · ❔. "This might be the tool (unconfirmed)." Could not settle on one official location; no code measurements.</p>
+
+  <h2>Architecture</h2>
+  <pre>{`Instagram DM
+  → serve   signed webhook, file queue
+  → work    one item at a time
+  → read video     transcript · on-screen text
+  → extract tools  Claude
+  → identify       caption links → registries → name search
+  → read-only measurement   GitHub · npm · PyPI · MCP registry
+  → compare claims          verify quoted source text
+  → grade · score           code rules
+  → DM reply`}</pre>
+  <div class="wtable"><table>
+    <thead><tr><th>Area</th><th>Stack</th></tr></thead>
+    <tbody>
+      <tr><td>Runtime</td><td>Python 3.14, mostly standard library; Docker Compose; Oracle Cloud</td></tr>
+      <tr><td>LLM</td><td>Claude Haiku 5.5 (extraction, on-screen text, claim comparison, same-tool checks)</td></tr>
+      <tr><td>Video</td><td>yt-dlp, ffmpeg, Groq Whisper</td></tr>
+      <tr><td>Measurement</td><td>GitHub API, npm, PyPI, MCP registry, deps.dev</td></tr>
+      <tr><td>Storage</td><td>File queue; SQLite cache (same post 7 days, same tool 3 days)</td></tr>
+      <tr><td>Entry</td><td>Meta Instagram API, Cloudflare Tunnel + WAF</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Guardrails</h2>
+  <p>The starting assumption: neither LLM output nor post content is trusted.</p>
+  <ul>
+    <li><strong>LLM claims are checked.</strong> To say a claim matches the docs, Claude must return a paragraph number and a quoted passage, and code confirms the passage is really in that paragraph.</li>
+    <li><strong>Posts are untrusted input.</strong> Captions, transcripts, on-screen text, and READMEs go into <code>&lt;untrusted&gt;</code> blocks as data only, and output is limited to fixed values and source quotes, which reduces how much instructions inside a video can affect the verdict.</li>
+    <li><strong>Tools under review are never executed.</strong> No installs, no <code>npx</code>; only public metadata and docs are read. Subprocesses are allow-listed, and the container runs with a read-only root and all capabilities dropped.</li>
+    <li><strong>Cost and abuse are capped.</strong> Two requests per account per day, 60 in total, and an estimated $2 per day. Each item has a 180-second deadline, and plain-text DMs never reach Claude.</li>
+    <li><strong>Personal data is not kept.</strong> Videos and frames are deleted right after processing, and processing records after 7 days. Sender account IDs are not passed to external APIs.</li>
+  </ul>
+
+  <h2>Evaluation</h2>
+  <p>
+    The answer set has 32 cases built from human-judged cards and adversarial examples. To pass: 👍 precision of at least 90%,
+    zero critical errors (human 👎 → automatic 👍), at most one 👎 false positive, and at most 40% ❔.
+    Results vary between runs, so it was run several times and compared (2026-11-03).
+  </p>
+  <div class="wtable"><table>
+    <thead><tr><th></th><th>Before fixes</th><th>Current code</th></tr></thead>
+    <tbody>
+      <tr><td>Dev set (19 tools) passed</td><td>2 of 2 runs</td><td>2 of 2 runs</td></tr>
+      <tr><td>Holdout (9 tools) passed</td><td>1 of 3 runs</td><td>2 of 3 runs</td></tr>
+      <tr><td>Holdout runs with a critical error</td><td>2 of 3 runs</td><td>1 of 3 runs</td></tr>
+    </tbody>
+  </table></div>
+  <p>Across all five runs, the current code kept the grade cap on adversarial cases such as prompt injection.</p>
+  <p>
+    <strong>The limits of these numbers:</strong> the sample is small, and the holdout was looked at repeatedly while the rules were being fixed,
+    so it is not an independent test. In the earlier CLI stage, a validation set was committed and frozen before its first run;
+    first-run identification was only 9/36, but all 9 confirmed identifications were correct.
+    In 24 of the 27 misses, the right repo was in the top 3 but same-name clones and impersonators kept it from being settled.
+  </p>
+  <p class="note">
+    Extraction and identification were scored as separate tasks, with a fixed denominator for identification. A separate session with no access
+    to the answer set re-judged the cases to check that exposure to the answers had not inflated the scores. Details:
+    <a href={doc('docs/eval-history.md')} target="_blank" rel="noopener">eval-history (Korean) ↗</a>
+  </p>
+
+  <h2>What production logs changed</h2>
+  <p>Reading real replies after launch turned up problems the answer set had missed.</p>
+  <div class="wtable"><table>
+    <thead><tr><th>Found</th><th>Cause</th><th>Fix</th></tr></thead>
+    <tbody>
+      <tr><td>No 👍 ever; 3 of 42 claims matched</td><td>Code rejected 9 of the 20 claims Claude confirmed (<code>[3]</code> markers, Markdown differences)</td><td>Normalize formatting, but keep the rule that the quote must be in the paragraph</td></tr>
+      <tr><td>❔ despite a GitHub link in the caption</td><td>Searched by name only</td><td>Use links in the post before searching</td></tr>
+      <tr><td>4 found tools dropped from a "TOP 10" post</td><td>Unfound tools took the verdict slots</td><td>Judge found tools first and list the missing names</td></tr>
+      <tr><td>0 stars and 7,000 stars both scored 5</td><td>Activity bonus earned by the owner's own commits</td><td>No bonus with few users, and a stronger penalty</td></tr>
+      <tr><td>Star-spike warning on NSA's <code>ghidra</code></td><td>One viral moment flagged as manipulation</td><td>Keep a notice, drop the penalty and the 👍 block</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Design decision: take the criteria, not the fork</h2>
+  <p>
+    Before using Starguard (★500, Apache-2.0) for star-manipulation detection, I read its code without installing or running it.
+    Its collection layer returned partial data as if it had succeeded when errors occurred, its two key signals (lock-step and clone impersonation)
+    had bugs that broke their reasoning, and it had no automated tests.
+  </p>
+  <p>
+    So instead of forking, I reimplemented only its criteria (thresholds and signals) with attribution. A fork would have given a few dozen lines of constants,
+    while fixing and maintaining it alone would have cost more.
+    <a href={doc('docs/starguard-review.md')} target="_blank" rel="noopener">Review notes (Korean) ↗</a>
+  </p>
+
+  <h2>Known limits</h2>
+  <ul>
+    <li><strong>It cannot catch exaggeration in the README itself.</strong> 👍 means "the developer's description matches the post." If the docs are right but the behavior differs, it can miss that.</li>
+    <li><strong>It does not check that features actually work,</strong> because it never runs them.</li>
+    <li><strong>Up to six tools per post are judged,</strong> for cost reasons; the rest are listed by name.</li>
+    <li><strong>One item at a time.</strong> About a minute each, so replies slow down under load.</li>
+    <li><strong>Automatic results can be wrong.</strong> Every reply says so, and users can answer <code>정정</code> ("correction").</li>
+  </ul>
+
+  <h2>Further reading (Korean)</h2>
+  <ul>
+    <li><a href={doc('docs/design-v1.md')} target="_blank" rel="noopener">Design doc v1</a> → <a href={doc('docs/design-v4.md')} target="_blank" rel="noopener">v4</a></li>
+    <li><a href={doc('docs/eval-blind-pass-2026-10-24.md')} target="_blank" rel="noopener">Blind re-judging session</a></li>
+    <li><a href={doc('deploy/README.md')} target="_blank" rel="noopener">Server deployment</a> · <a href={doc('PRIVACY.md')} target="_blank" rel="noopener">Privacy policy</a></li>
+  </ul>
+</Writeup>

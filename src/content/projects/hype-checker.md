@@ -9,6 +9,7 @@ tech: ["Python","Claude","GitHub API","Docker","Oracle Cloud"]
 liveUrl: "https://www.instagram.com/hyper_checker/"
 repoUrl: "https://github.com/KimHands/hype-checker"
 area: "ai"
+writeup: true
 featured: true
 order: 1
 ---
