@@ -1,0 +1,21 @@
+---
+import { records } from '../data/records';
+import { type Lang } from '../i18n/utils';
+const { lang } = Astro.props as { lang: Lang };
+const en = lang === 'en';
+const isFile = (href: string) => href.endsWith('.pdf');
+---
+<section id="records"><div class="page">
+  <div class="seclabel reveal"><span><span class="dot">#</span> {en ? 'Documents' : '문서·기록'}</span><span>{en ? 'write-ups · papers' : '글 · 논문 · 증빙'}</span></div>
+  <ul class="records reveal d1">
+    {records.map((r) => (
+      <li>
+        <span class="rdate mono">{r.date}</span>
+        <a href={en ? (r.href_en ?? r.href) : r.href} target={isFile(r.href) ? '_blank' : undefined} rel={isFile(r.href) ? 'noopener' : undefined}>
+          {en ? r.title_en : r.title}
+        </a>
+        <span class="rkind mono">{en ? r.kind_en : r.kind}</span>
+      </li>
+    ))}
+  </ul>
+</div></section>

@@ -9,7 +9,7 @@
   --accent:#0066cc; --accent-soft:#eaf2fc;
   --sans:-apple-system,BlinkMacSystemFont,system-ui,"Inter","Segoe UI",sans-serif;
   --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,"JetBrains Mono",monospace;
-  --page:1080px; --measure:640px;
+  --page:1360px; --measure:640px;
 }
 [data-theme="dark"]{
   --canvas:#1f1f23; --soft:#2a2a2f; --ink:#f5f5f7; --charcoal:#c9c9cf;
@@ -193,3 +193,28 @@ section{padding:88px 0}
 .writeup th{font-family:var(--mono);font-size:12px;font-weight:400;color:var(--body);text-transform:uppercase;letter-spacing:.04em}
 .writeup .note{font-size:14.5px;color:var(--body)}
 @media(max-width:880px){.writeup{padding-top:36px}.writeup h1{font-size:32px}}
+.rail{display:none}
+.records{list-style:none;border-top:1px solid var(--hairline)}
+.records li{display:grid;grid-template-columns:92px minmax(0,1fr) auto;gap:20px;align-items:baseline;
+  padding:16px 0;border-bottom:1px solid var(--hairline)}
+.records .rdate{font-size:13px;color:var(--body)}
+.records a{color:var(--ink);text-decoration:none;font-size:16px}
+.records a:hover{color:var(--accent)}
+.records .rkind{font-size:12px;color:var(--body)}
+@media(min-width:1200px){
+  .shell{max-width:var(--page);margin:0 auto;padding:0 40px;display:grid;
+    grid-template-columns:176px minmax(0,1fr);column-gap:72px}
+  .shell .page{max-width:none;padding:0}
+  .rail{display:block;padding-top:120px}
+  .rail-in{position:sticky;top:96px}
+  .rail ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+  .rail-sec a{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--body);text-decoration:none}
+  .rail-sec a .dot{color:var(--mute)}
+  .rail-sec a:hover{color:var(--ink)}
+  .rail-sec a.on{color:var(--ink);font-weight:600}
+  .rail-sec a.on .dot{color:var(--accent)}
+  .rail-docs{margin-top:28px;padding-top:20px;border-top:1px solid var(--hairline)}
+  .rail-docs a{font-size:13.5px;color:var(--charcoal);text-decoration:none}
+  .rail-docs a:hover{color:var(--accent)}
+}
+@media(max-width:880px){.records li{grid-template-columns:72px minmax(0,1fr);gap:4px 14px}.records .rkind{grid-column:2}}
