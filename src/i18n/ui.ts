@@ -10,8 +10,8 @@ export const ui = {
     'hero.work': '작업 보기 ↓', 'hero.resume': '이력서',
     'stack.label': 'Stack', 'stack.note': '실제 비중대로',
     'work.label': 'Selected Work',
-    'contact.cmd': '$ contact', 'contact.title': '같이 일할 곳을 찾고 있습니다.',
-    'contact.body': 'AI 에이전트를 제품으로 만들 개발자가 필요하시면 편하게 연락 주세요.',
+    'contact.cmd': '$ contact', 'contact.title': '함께 일할 곳을 찾고 있습니다.',
+    'contact.body': 'AI 에이전트를 제품으로 만들 개발자가 필요하시면 언제든 연락 주세요.',
     'contact.email': '이메일 보내기 →',
   },
   en: {
