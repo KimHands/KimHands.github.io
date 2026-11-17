@@ -10,7 +10,7 @@ const readProject = (file: string) => readFileSync(join(projectDir, file), 'utf8
 const expectedProjects = [
   'hype-checker', 'opsmith', 'bridge', 'sch-meet', 'clasp', 'hwpx-toolkit',
   'islab-platform', 'humanize-korean-formal', 'keylessplay',
-  'hedgehog-webctf', 'classfileauto', 'likelion14-sch',
+  'hedgehog-webctf', 'classfileauto', 'likelion14-sch', 'random-food-challenge',
 ];
 
 // Private or archived repos must never be linked.
@@ -20,7 +20,7 @@ const unlinkableRepos = new Set([
   'kimhands/hedgehog_webctf', 'kimhands/hedgehog-webctf',
   'kimhands/keylessplay', 'kimhands/keylessplay-thesis',
   'kimhands/islab-platform', 'isl-hedgehog/islab-platform',
-  'kimhands/hype-checker-private',
+  'kimhands/hype-checker-private', 'kimhands/random-food-challenge',
 ]);
 // Dead hosts and an unowned domain.
 const unlinkableHosts = new Set([
